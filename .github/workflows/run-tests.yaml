@@ -25,6 +25,6 @@ jobs:
         working-directory: cdp-local-environment
         run: docker compose --profile portal up --wait
       - name: Run the tests
-      - run: |
+        run: |
           npm install
           npm test
