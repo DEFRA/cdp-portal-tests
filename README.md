@@ -1,4 +1,4 @@
-# CDP Node.js Backend Template
+# cdp-portal-tests
 
 Core delivery platform Node.js Backend Template.
 
@@ -28,7 +28,7 @@ easier to use the Node Version Manager [nvm](https://github.com/creationix/nvm)
 To use the correct version of Node.js for this application, via nvm:
 
 ```bash
-$ cd cdp-node-backend-template
+$ cd cdp-portal-tests
 $ nvm use
 ```
 
@@ -82,8 +82,8 @@ $ npm run
 A [Postman](https://www.postman.com/) collection and environment are available for making calls to the Teams and
 Repositories API. Simply import the collection and environment into Postman.
 
-- [CDP Node Backend Template Postman Collection](postman/cdp-node-backend-template.postman_collection.json)
-- [CDP Node Backend Template Postman Environment](postman/cdp-node-backend-template.postman_environment.json)
+- [CDP Node Backend Template Postman Collection](postman/cdp-portal-tests.postman_collection.json)
+- [CDP Node Backend Template Postman Environment](postman/cdp-portal-tests.postman_environment.json)
 
 ## Docker
 
@@ -92,13 +92,13 @@ Repositories API. Simply import the collection and environment into Postman.
 Build:
 
 ```bash
-$ docker build --target development --no-cache --tag cdp-node-backend-template:development .
+$ docker build --target development --no-cache --tag cdp-portal-tests:development .
 ```
 
 Run:
 
 ```bash
-$ docker run -e GITHUB_API_TOKEN -p 3008:3008 cdp-node-backend-template:development
+$ docker run -e GITHUB_API_TOKEN -p 3008:3008 cdp-portal-tests:development
 ```
 
 ### Production image
@@ -106,13 +106,13 @@ $ docker run -e GITHUB_API_TOKEN -p 3008:3008 cdp-node-backend-template:developm
 Build:
 
 ```bash
-docker build --no-cache --tag cdp-node-backend-template .
+docker build --no-cache --tag cdp-portal-tests .
 ```
 
 Run:
 
 ```bash
-$ docker run -e GITHUB_API_TOKEN -p 3001:3001 cdp-node-backend-template
+$ docker run -e GITHUB_API_TOKEN -p 3001:3001 cdp-portal-tests
 ```
 
 ## Licence
