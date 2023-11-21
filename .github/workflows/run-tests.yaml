@@ -1,0 +1,30 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: CDP-run-tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+      - name: Clone cdp-local-environment
+        run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git  
+      - name: Start local environment
+        working-directory: cdp-local-environment
+        run: docker compose --profile portal up --wait
+      - name: Run the tests
+      - run: |
+          npm install
+          npm test
