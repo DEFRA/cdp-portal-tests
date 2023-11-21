@@ -6,15 +6,7 @@ Core delivery platform Node.js Backend Template.
   - [Node.js](#nodejs)
 - [Local development](#local-development)
   - [Setup](#setup)
-  - [Development](#development)
-  - [Production](#production)
-  - [Npm scripts](#npm-scripts)
-- [API endpoints](#api-endpoints)
-- [Calling API endpoints](#calling-api-endpoints)
-  - [Postman](#postman)
-- [Docker](#docker)
-  - [Development Image](#development-image)
-  - [Production Image](#production-image)
+  - [Running the test suite](#running-the-test-suite)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
@@ -42,78 +34,18 @@ Install application dependencies:
 $ npm install
 ```
 
-### Development
-
-To run the application in `development` mode run:
+Download https://github.com/defra/cdp-local-environment and start the portal profile
 
 ```bash
-$ npm run dev
+$ docker compose --profile portal up
 ```
 
-### Production
-
-To mimic the application running in `production` mode locally run:
+### Running the test suite
 
 ```bash
-$ npm start
+$ npm test
 ```
 
-### Npm scripts
-
-All available Npm scripts can be seen in [package.json](./package.json)
-To view them in your command line run:
-
-```bash
-$ npm run
-```
-
-## API endpoints
-
-| Endpoint                       | Description  |
-| :----------------------------- | :----------- |
-| `GET: /health`                 | Health       |
-| `GET: /v1/entities`            | Entities     |
-| `GET: /v1/entities/<entityId>` | Entity by ID |
-
-## Calling API endpoints
-
-### Postman
-
-A [Postman](https://www.postman.com/) collection and environment are available for making calls to the Teams and
-Repositories API. Simply import the collection and environment into Postman.
-
-- [CDP Node Backend Template Postman Collection](postman/cdp-portal-tests.postman_collection.json)
-- [CDP Node Backend Template Postman Environment](postman/cdp-portal-tests.postman_environment.json)
-
-## Docker
-
-### Development image
-
-Build:
-
-```bash
-$ docker build --target development --no-cache --tag cdp-portal-tests:development .
-```
-
-Run:
-
-```bash
-$ docker run -e GITHUB_API_TOKEN -p 3008:3008 cdp-portal-tests:development
-```
-
-### Production image
-
-Build:
-
-```bash
-docker build --no-cache --tag cdp-portal-tests .
-```
-
-Run:
-
-```bash
-$ docker run -e GITHUB_API_TOKEN -p 3001:3001 cdp-portal-tests
-```
 
 ## Licence
 
