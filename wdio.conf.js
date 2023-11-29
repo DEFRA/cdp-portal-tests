@@ -22,7 +22,7 @@ export const config = {
     // will be called from there.
     //
     specs: [
-        './src/**/*.js'
+        './test/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -50,21 +50,24 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
+
      capabilities: [{
         maxInstances: 1,
         browserName: 'chrome',
-	hostname: 'localhost',
-	port: 4444,
+        hostname: 'localhost',
+        port: 4444,
         'goog:chromeOptions': {
             args: [
                 '--no-sandbox',
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
-                '--window-size=1440,735'
+                '--window-size=1920,1080'
             ],
         }
     }],
+
+
     //
     // ===================
     // Test Configurations
@@ -90,16 +93,17 @@ export const config = {
     //
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
-    bail: 0,
+    bail: 1,
     //
     // Set a base URL in order to shorten url command calls. If your `url` parameter starts
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost:3000/',
+    baseUrl: 'http://127.0.0.1:3000/',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
+    waitforInterval: 200,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
@@ -136,7 +140,7 @@ export const config = {
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec'],
 
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
