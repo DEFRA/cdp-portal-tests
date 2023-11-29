@@ -9,11 +9,14 @@ describe('Main page', () => {
 
   it('should be able to log in', async() => {
     await MainPage.open()
-
+    console.log(await(browser.getUrl()))
     await expect(MainPage.loginButton).toHaveText('Sign in')
     await MainPage.loginButton.click()
+    console.log(await(browser.getUrl()))
     await expect(MainPage.loginText).toHaveText('admin')
+    console.log(await(browser.getUrl()))
     await expect(MainPage.loginButton).toHaveText('Sign out')
+    console.log(await(browser.getUrl()))
   })
 
 
