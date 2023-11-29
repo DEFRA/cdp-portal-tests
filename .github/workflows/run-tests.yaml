@@ -18,7 +18,7 @@ jobs:
           node-version: 20
           cache: npm
       - name: Clone cdp-local-environment
-        run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git  
+        run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git
       - name: Start local environment
         working-directory: cdp-local-environment
         run: docker compose --profile portal up --wait
@@ -26,3 +26,5 @@ jobs:
         run: |
           npm install
           npm test
+          docker logs cdp-portal-stubs
+          docker logs cdp-portal-frontend
