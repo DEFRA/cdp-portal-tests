@@ -19,7 +19,7 @@ describe('Main page', () => {
     console.log(await(browser.getUrl()))
   })
 
-/*
+
   it('should be able to create a service', async () => {
 
     // navigate to the create a service page
@@ -53,7 +53,7 @@ describe('Main page', () => {
       const serviceLink = $(`a[href="/services/${testRepoName}"]`)
       await expect(serviceLink).toHaveText(testRepoName)
   })
-*/
+
 
   it('should debug the oidc stub', async() => {
     await browser.navigateTo("http://localhost:3939/_admin/oidc/sessions")
