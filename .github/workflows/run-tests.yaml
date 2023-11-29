@@ -21,9 +21,13 @@ jobs:
         run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git
       - name: Start local environment
         working-directory: cdp-local-environment
+        run: docker compose up --wait
+      - name: Start profile
+        working-directory: cdp-local-environment
         run: docker compose --profile portal up --wait
       - name: Run the tests
         run: |
+          docker ps
           npm install
           npm test
       - name: debug
