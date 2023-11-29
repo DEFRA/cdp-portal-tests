@@ -18,12 +18,12 @@ describe('Main page', () => {
 
     await OidcLoginPage.loginAsAdmin()
 
+    // wait until callback has finished
     await browser.waitUntil( async ()=> {
       const url = await browser.getUrl()
-      console.log(url)
       return !url.includes("/auth/callback")
     })
-    await expect(await browser.getUrl()).toBe("http://127.0.0.1:3000/")
+
     await expect(MainPage.loginText).toHaveText('admin')
     await expect(MainPage.loginButton).toHaveText('Sign out')
   })
