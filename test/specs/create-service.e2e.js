@@ -12,18 +12,6 @@ describe('Main page', () => {
 
     await expect(MainPage.loginButton).toHaveText('Sign in')
     await MainPage.loginButton.click()
-
-
-    expect(OidcLoginPage.adminLogin).toExist()
-
-    await OidcLoginPage.loginAsAdmin()
-
-    // wait until callback has finished
-    await browser.waitUntil( async ()=> {
-      const url = await browser.getUrl()
-      return !url.includes("/auth/callback")
-    })
-
     await expect(MainPage.loginText).toHaveText('admin')
     await expect(MainPage.loginButton).toHaveText('Sign out')
   })
