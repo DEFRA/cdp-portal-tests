@@ -26,5 +26,8 @@ jobs:
         run: |
           npm install
           npm test
+      - name: debug
+        if: always()
+        run: |
           docker logs cdp-portal-stubs
           docker logs cdp-portal-frontend
