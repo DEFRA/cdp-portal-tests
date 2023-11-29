@@ -1,7 +1,7 @@
 import { $ } from '@wdio/globals'
 import  { Page } from  './page.js'
 
-// The oidc pretent login page
+// The oidc stub login page
 class OidcLoginPage extends Page {
 
   get adminLogin () {
