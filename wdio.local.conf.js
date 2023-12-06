@@ -54,13 +54,10 @@ export const config = {
      capabilities: [{
        maxInstances: 1,
        browserName: 'chrome',
-       hostname: 'localhost',
-       port: 4444,
        'goog:chromeOptions': {
          args: [
            '--no-sandbox',
            '--disable-infobars',
-           '--headless',
            '--disable-gpu',
            '--window-size=1920,1080'
          ],

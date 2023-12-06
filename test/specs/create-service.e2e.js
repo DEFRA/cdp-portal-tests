@@ -3,8 +3,12 @@ import MainPage from "../pageobjects/main.page.js";
 import OidcLoginPage from "../pageobjects/oidc-login.js";
 import CreateServicePage from "../pageobjects/create-service.page.js"
 import CreateProgressPage from "../pageobjects/create-progress.page.js"
+import CreateChooseKind from "../pageobjects/create-choose-kind.page.js"
+import CreateServiceSummary from "../pageobjects/create-service-summary.page.js"
 
 describe('Main page', () => {
+
+
   const testRepoName = "test-repo-" + Math.floor(Math.random() * 9999999) // randomize name
 
   it('should be able to log in', async() => {
@@ -22,17 +26,26 @@ describe('Main page', () => {
 
   it('should be able to create a service', async () => {
 
+    await CreateChooseKind.open()
+    await expect(CreateChooseKind.pageTitle).toHaveText('Create')
+    await CreateChooseKind.inputRadioMicroservice.click()
+    await CreateChooseKind.nextButton.click()
+
+
     // navigate to the create a service page
-    await CreateServicePage.open()
     await expect(CreateServicePage.pageTitle).toHaveText('Create a new microservice')
 
     await CreateServicePage.inputRepositoryName.addValue(testRepoName)
     await CreateServicePage.inputServiceType.selectByVisibleText('Node.js Frontend')
     await CreateServicePage.inputOwningTeam.selectByIndex(1) // TODO: should this be value? how deterministic is this
-    await CreateServicePage.createButton.click()
+    await CreateServicePage.nextButton.click()
+
+    // go to the summary page
+    await expect(CreateServiceSummary.pageTitle).toHaveText('Create microservice summary')
+    // TODO: check summary has the right details
+    await CreateServiceSummary.createButton.click()
 
     // expect a the page to be redirected to the status page
-    await expect(CreateProgressPage.isOpen(testRepoName))
     await expect(CreateProgressPage.pageTitle).toHaveText(testRepoName)
 
     // wait for it to complete
@@ -53,7 +66,6 @@ describe('Main page', () => {
       const serviceLink = $(`a[href="/services/${testRepoName}"]`)
       await expect(serviceLink).toHaveText(testRepoName)
   })
-
 
   it('should debug the oidc stub', async() => {
     await browser.navigateTo("http://localhost:3939/_admin/oidc/sessions")

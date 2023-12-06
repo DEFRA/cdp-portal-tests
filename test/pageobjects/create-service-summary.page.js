@@ -1,8 +1,7 @@
 import { $ } from '@wdio/globals'
 import  { Page } from  './page.js'
 
-
-class CreateServicePage extends Page {
+class CreateServiceSummaryPage extends Page {
 
   get pageTitle () {
     return $('h1[data-testid="app-heading-title"]')
@@ -20,14 +19,13 @@ class CreateServicePage extends Page {
     return $('#team-id')
   }
 
-  get nextButton () {
-    return $('button=Next')
+  get createButton () {
+    return $('button=Create')
   }
 
   open () {
-    return super.open('/create/microservice-detail')
+    return super.open('/create/microservice/summary')
   }
 }
 
-export default new CreateServicePage();
-
+export default new CreateServiceSummaryPage();

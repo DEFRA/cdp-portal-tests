@@ -12,29 +12,13 @@ Core delivery platform Node.js Backend Template.
 
 ## Requirements
 
-### Node.js
+- mongodb
+- redis
+- localstack
+- cdp-portal-stubs
+- cdp portal running and pointed at stubs/local services
 
-Please install [Node.js](http://nodejs.org/) `>= v18` and [npm](https://nodejs.org/) `>= v9`. You will find it
-easier to use the Node Version Manager [nvm](https://github.com/creationix/nvm)
-
-To use the correct version of Node.js for this application, via nvm:
-
-```bash
-$ cd cdp-portal-tests
-$ nvm use
-```
-
-## Local development
-
-### Setup
-
-Install application dependencies:
-
-```bash
-$ npm install
-```
-
-Download https://github.com/defra/cdp-local-environment and start the portal profile
+The easiest way of setting this up would be to clone [https://github.com/defra/cdp-local-environment](cdp-local-environment) and start the portal profile
 
 ```bash
 $ docker compose --profile portal up
@@ -46,6 +30,12 @@ $ docker compose --profile portal up
 $ npm test
 ```
 
+or
+
+```bash
+npm run test-local
+```
+to run it with the browser visible, which is useful for debugging.
 
 ## Licence
 

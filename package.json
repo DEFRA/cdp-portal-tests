@@ -11,7 +11,8 @@
     "@wdio/spec-reporter": "^8.23.1"
   },
   "scripts": {
-    "test": "wdio run ./wdio.conf.js"
+    "test": "wdio run ./wdio.conf.js",
+    "test-local": "wdio run ./wdio.local.conf.js"
   },
   "author": "",
   "license": "ISC"

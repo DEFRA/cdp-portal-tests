@@ -12,13 +12,8 @@ class CreateProgressPage extends Page {
     return $('.app-status-info__primary')
   }
 
-  async isOpen (service) {
-    const url = await browser.getUrl()
-    return url.startsWith('/service/' + service)
-  }
-
   open (service) {
-    return super.open('/create-service/' + service)
+    return super.open('/service/' + service)
   }
 }
 
