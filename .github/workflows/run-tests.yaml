@@ -11,8 +11,6 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 20
@@ -40,4 +38,4 @@ jobs:
         run: |
           docker logs cdp-portal-stubs
           docker logs cdp-portal-frontend
-          docker logs cdp-user-service-backend
+          docker logs cdp-portal-backend
