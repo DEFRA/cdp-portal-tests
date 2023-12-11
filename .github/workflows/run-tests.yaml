@@ -25,13 +25,16 @@ jobs:
       - name: Start profile
         working-directory: cdp-local-environment
         run: docker compose --profile portal up --wait
+      - name: Clone the test suite
+        run: git clone --depth 1 git@github.com:DEFRA/cdp-portal-tests.git
       - name: Run the tests
+        working-directory: cdp-portal-tests
         run: |
           docker ps
           npm install
           npm test
       - name: debug
-        if: always()
+        if: failure()
         run: |
           docker logs cdp-portal-stubs
           docker logs cdp-portal-frontend
