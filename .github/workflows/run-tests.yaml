@@ -26,10 +26,10 @@ jobs:
         run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git
       - name: Start local environment
         working-directory: cdp-local-environment
-        run: docker compose up --wait-timeout 300 --quiet-pull
+        run: docker compose up --wait-timeout 300 -d --quiet-pull
       - name: Start profile
         working-directory: cdp-local-environment
-        run: docker compose --profile portal up --wait-timeout 300 --quiet-pull
+        run: docker compose --profile portal up --wait-timeout 300 -d --quiet-pull
       - name: Run the tests
         working-directory: cdp-portal-tests
         run: |
