@@ -11,12 +11,12 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Clone the test suite
+        run: git clone --depth 1 https://github.com/DEFRA/cdp-portal-tests.git .
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: npm
-      - name: Clone the test suite
-        run: git clone --depth 1 https://github.com/DEFRA/cdp-portal-tests.git
       - name: Setup the tests
         working-directory: cdp-portal-tests
         run: npm install
@@ -29,7 +29,6 @@ jobs:
         working-directory: cdp-local-environment
         run: docker compose --profile portal up --wait-timeout 300 -d --quiet-pull
       - name: Run the tests
-        working-directory: cdp-portal-tests
         run: |
           docker ps
           npm test
