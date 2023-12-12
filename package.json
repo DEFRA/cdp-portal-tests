@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Cdp Portal test suite",
   "engines": {
-    "node": "20.3.0"
+    "node": ">=20.3.0"
   },
   "author": "Defra DDTS",
   "license": "OGL-UK-3.0",
@@ -22,14 +22,14 @@
     "@wdio/globals": "8.26.1",
     "@wdio/local-runner": "8.26.1",
     "@wdio/mocha-framework": "8.24.12",
-    "@wdio/spec-reporter": "8.24.12"
-  },
-  "devDependencies": {
+    "@wdio/spec-reporter": "8.24.12",
     "@babel/cli": "7.23.4",
     "@babel/core": "7.23.6",
     "@babel/preset-env": "7.23.6",
     "@babel/register": "7.22.15",
-    "babel-plugin-module-resolver": "5.0.0",
+    "babel-plugin-module-resolver": "5.0.0"
+  },
+  "devDependencies": {
     "eslint": "8.55.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-standard": "17.1.0",
