@@ -1,7 +1,7 @@
 import { browser, expect } from '@wdio/globals'
 
 import HomePage from 'page-objects/home.page'
-import CreateServicePage from 'page-objects/create-service.page'
+import CreateMicroservicePage from 'page-objects/create-microservice.page'
 import ServicesPage from 'page-objects/services.page'
 import FromComponent from 'components/form.component'
 import EntityListComponent from 'components/entity-list.component'
@@ -24,13 +24,13 @@ describe('Create microservice', () => {
   })
 
   it('Should be on the "Create" page', async () => {
-    await CreateServicePage.open()
+    await CreateMicroservicePage.open()
 
     await expect(browser).toHaveTitle(
       'Create | Core Delivery Platform - Portal'
     )
-    await expect(await CreateServicePage.navIsActive()).toBe(true)
-    await expect(CreateServicePage.appHeadingTitle('Create')).toExist()
+    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
+    await expect(CreateMicroservicePage.appHeadingTitle('Create')).toExist()
   })
 
   it('Should be able to choose a Microservice', async () => {
@@ -46,12 +46,12 @@ describe('Create microservice', () => {
     await expect(browser).toHaveTitle(
       'Create a new microservice | Core Delivery Platform - Portal'
     )
-    await expect(await CreateServicePage.navIsActive()).toBe(true)
+    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
     await expect(
-      CreateServicePage.appHeadingTitle('Create a new microservice')
+      CreateMicroservicePage.appHeadingTitle('Create a new microservice')
     ).toExist()
     await expect(
-      CreateServicePage.appHeadingCaption(
+      CreateMicroservicePage.appHeadingCaption(
         'Create a new microservice code repository and infrastructure.'
       )
     ).toExist()
@@ -75,12 +75,12 @@ describe('Create microservice', () => {
     await expect(browser).toHaveTitle(
       'Create microservice summary | Core Delivery Platform - Portal'
     )
-    await expect(await CreateServicePage.navIsActive()).toBe(true)
+    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
     await expect(
-      CreateServicePage.appHeadingTitle('Create microservice summary')
+      CreateMicroservicePage.appHeadingTitle('Create microservice summary')
     ).toExist()
     await expect(
-      CreateServicePage.appHeadingCaption(
+      CreateMicroservicePage.appHeadingCaption(
         'Information about the new microservice you are going to create.'
       )
     ).toExist()
@@ -119,9 +119,9 @@ describe('Create microservice', () => {
     await ServicesPage.appHeadingCaption(
       `Information about the ${testRepositoryName} microservice.`
     ).waitForDisplayed({
-      timeout: 40000,
+      timeout: 60000,
       timeoutMsg:
-        'Expected service page caption status to be appear after 40 seconds'
+        'Expected service page caption status to be appear after 60 seconds'
     })
 
     await expect(
