@@ -18,7 +18,7 @@ jobs:
           node-version: 20
           cache: npm
       - name: Setup the tests
-        run: npm install
+        run: npm ci --omit=dev
       - name: Clone cdp-local-environment
         run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git
       - name: Start local environment
