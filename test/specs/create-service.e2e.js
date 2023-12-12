@@ -1,76 +1,150 @@
-import { expect, browser, $ } from '@wdio/globals'
-import MainPage from "../pageobjects/main.page.js";
-import OidcLoginPage from "../pageobjects/oidc-login.js";
-import CreateServicePage from "../pageobjects/create-service.page.js"
-import CreateProgressPage from "../pageobjects/create-progress.page.js"
-import CreateChooseKind from "../pageobjects/create-choose-kind.page.js"
-import CreateServiceSummary from "../pageobjects/create-service-summary.page.js"
+import { browser, expect } from '@wdio/globals'
 
-describe('Main page', () => {
+import HomePage from 'page-objects/home.page'
+import CreateServicePage from 'page-objects/create-service.page'
+import ServicesPage from 'page-objects/services.page'
+import FromComponent from 'components/form.component'
+import EntityListComponent from 'components/entity-list.component'
 
+describe('Create microservice', () => {
+  const testRepositoryName = `test-repo-${new Date().getTime()}`
+  const serviceTypes = ['DotNet Backend', 'Node.js Frontend', 'Node.js Backend']
+  const randomServiceType = Math.floor(Math.random() * serviceTypes.length)
+  const serviceType = serviceTypes[randomServiceType]
 
-  const testRepoName = "test-repo-" + Math.floor(Math.random() * 9999999) // randomize name
+  it('Login', async () => {
+    await HomePage.open()
 
-  it('should be able to log in', async() => {
-    await MainPage.open()
-    console.log(await(browser.getUrl()))
-    await expect(MainPage.loginButton).toHaveText('Sign in')
-    await MainPage.loginButton.click()
-    console.log(await(browser.getUrl()))
-    await expect(MainPage.loginText).toHaveText('admin')
-    console.log(await(browser.getUrl()))
-    await expect(MainPage.loginButton).toHaveText('Sign out')
-    console.log(await(browser.getUrl()))
+    await expect(HomePage.loginLink).toHaveText('Sign in')
+
+    await HomePage.loginLink.click()
+
+    await expect(HomePage.userName).toHaveText('admin')
+    await expect(HomePage.loginLink).toHaveText('Sign out')
   })
 
+  it('Should be on the "Create" page', async () => {
+    await CreateServicePage.open()
 
-  it('should be able to create a service', async () => {
-
-    await CreateChooseKind.open()
-    await expect(CreateChooseKind.pageTitle).toHaveText('Create')
-    await CreateChooseKind.inputRadioMicroservice.click()
-    await CreateChooseKind.nextButton.click()
-
-
-    // navigate to the create a service page
-    await expect(CreateServicePage.pageTitle).toHaveText('Create a new microservice')
-
-    await CreateServicePage.inputRepositoryName.addValue(testRepoName)
-    await CreateServicePage.inputServiceType.selectByVisibleText('Node.js Frontend')
-    await CreateServicePage.inputOwningTeam.selectByIndex(1) // TODO: should this be value? how deterministic is this
-    await CreateServicePage.nextButton.click()
-
-    // go to the summary page
-    await expect(CreateServiceSummary.pageTitle).toHaveText('Create microservice summary')
-    // TODO: check summary has the right details
-    await CreateServiceSummary.createButton.click()
-
-    // expect a the page to be redirected to the status page
-    await expect(CreateProgressPage.pageTitle).toHaveText(testRepoName)
-
-    // wait for it to complete
-    await expect(CreateProgressPage.overallProgress).toHaveText('IN PROGRESS')
-
-    await CreateProgressPage.overallProgress.waitUntil(async function () {
-            return (await this.getText()) === 'SUCCESS'
-        }, {
-            timeout: 20000,
-            timeoutMsg: 'expected overall status to be successful after 20s'
-        })
-
-    await expect(CreateProgressPage.overallProgress).toHaveText('SUCCESS')
+    await expect(browser).toHaveTitle(
+      'Create | Core Delivery Platform - Portal'
+    )
+    await expect(await CreateServicePage.navIsActive()).toBe(true)
+    await expect(CreateServicePage.appHeadingTitle('Create')).toExist()
   })
 
-  it('should display the new service in the service page', async () => {
-      await browser.url('/services')
-      const serviceLink = $(`a[href="/services/${testRepoName}"]`)
-      await expect(serviceLink).toHaveText(testRepoName)
+  it('Should be able to choose a Microservice', async () => {
+    await expect(
+      FromComponent.legend('What would you like to create?')
+    ).toExist()
+
+    await FromComponent.inputLabel('Microservice').click()
+    await FromComponent.submitButton('Next').click()
   })
 
-  it('should debug the oidc stub', async() => {
-    await browser.navigateTo("http://localhost:3939/_admin/oidc/sessions")
-    console.log(await $('body').getText())
+  it('Should be able to enter microservice details', async () => {
+    await expect(browser).toHaveTitle(
+      'Create a new microservice | Core Delivery Platform - Portal'
+    )
+    await expect(await CreateServicePage.navIsActive()).toBe(true)
+    await expect(
+      CreateServicePage.appHeadingTitle('Create a new microservice')
+    ).toExist()
+    await expect(
+      CreateServicePage.appHeadingCaption(
+        'Create a new microservice code repository and infrastructure.'
+      )
+    ).toExist()
+    await expect(
+      FromComponent.legend('Enter your new service details')
+    ).toExist()
+
+    await FromComponent.inputLabel('Repository Name').click()
+    await browser.keys(testRepositoryName)
+
+    await FromComponent.inputLabel('Service Type').click()
+    await browser.keys(serviceType)
+
+    await FromComponent.inputLabel('Owning Team').click()
+    await browser.keys('Platform')
+
+    await FromComponent.submitButton('Next').click()
   })
 
+  it('Should be able to view microservice summary', async () => {
+    await expect(browser).toHaveTitle(
+      'Create microservice summary | Core Delivery Platform - Portal'
+    )
+    await expect(await CreateServicePage.navIsActive()).toBe(true)
+    await expect(
+      CreateServicePage.appHeadingTitle('Create microservice summary')
+    ).toExist()
+    await expect(
+      CreateServicePage.appHeadingCaption(
+        'Information about the new microservice you are going to create.'
+      )
+    ).toExist()
+
+    await FromComponent.submitButton('Create').click()
+  })
+
+  it('Should be redirected to create microservice status page', async () => {
+    await expect(browser).toHaveTitle(
+      `${testRepositoryName} microservice | Core Delivery Platform - Portal`
+    )
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(
+      ServicesPage.appHeadingCaption(
+        `Creating the ${testRepositoryName} microservice.`
+      )
+    ).toExist()
+    await expect(ServicesPage.overallProgress()).toHaveText('IN PROGRESS')
+
+    await ServicesPage.overallProgress('Success').waitForDisplayed({
+      timeout: 20000,
+      timeoutMsg: 'Expected overall status to be successful after 20 seconds'
+    })
+
+    await expect(ServicesPage.overallProgress()).toHaveText('SUCCESS')
+  })
+
+  it('Should be redirected to created microservice page', async () => {
+    await expect(browser).toHaveTitle(
+      `${testRepositoryName} microservice | Core Delivery Platform - Portal`
+    )
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+
+    await ServicesPage.appHeadingCaption(
+      `Information about the ${testRepositoryName} microservice.`
+    ).waitForDisplayed({
+      timeout: 40000,
+      timeoutMsg:
+        'Expected service page caption status to be appear after 40 seconds'
+    })
+
+    await expect(
+      ServicesPage.appHeadingCaption(
+        `Information about the ${testRepositoryName} microservice.`
+      )
+    ).toExist()
+  })
+
+  it('Should display new microservice on services list page', async () => {
+    await ServicesPage.open()
+
+    await expect(browser).toHaveTitle(
+      'Services | Core Delivery Platform - Portal'
+    )
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle('Services')).toExist()
+    await expect(
+      ServicesPage.appHeadingCaption(
+        'Frontend and Backend microservice information.'
+      )
+    ).toExist()
+
+    await expect(EntityListComponent.entityLink(testRepositoryName)).toExist()
+  })
 })
-
