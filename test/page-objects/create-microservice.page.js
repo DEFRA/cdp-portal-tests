@@ -1,6 +1,6 @@
 import { Page } from 'page-objects/page'
 
-class CreateServicePage extends Page {
+class CreateMicroservicePage extends Page {
   navItem() {
     return super.navItem('create')
   }
@@ -14,4 +14,4 @@ class CreateServicePage extends Page {
   }
 }
 
-export default new CreateServicePage()
+export default new CreateMicroservicePage()
