@@ -3,7 +3,7 @@ import { browser, expect } from '@wdio/globals'
 import HomePage from 'page-objects/home.page'
 import CreateMicroservicePage from 'page-objects/create-microservice.page'
 import ServicesPage from 'page-objects/services.page'
-import FromComponent from 'components/form.component'
+import FormComponent from 'components/form.component'
 import EntityListComponent from 'components/entity-list.component'
 
 describe('Create microservice', () => {
@@ -35,11 +35,11 @@ describe('Create microservice', () => {
 
   it('Should be able to choose a Microservice', async () => {
     await expect(
-      FromComponent.legend('What would you like to create?')
+      FormComponent.legend('What would you like to create?')
     ).toExist()
 
-    await FromComponent.inputLabel('Microservice').click()
-    await FromComponent.submitButton('Next').click()
+    await FormComponent.inputLabel('Microservice').click()
+    await FormComponent.submitButton('Next').click()
   })
 
   it('Should be able to enter microservice details', async () => {
@@ -56,19 +56,19 @@ describe('Create microservice', () => {
       )
     ).toExist()
     await expect(
-      FromComponent.legend('Enter your new service details')
+      FormComponent.legend('Enter your new service details')
     ).toExist()
 
-    await FromComponent.inputLabel('Repository Name').click()
+    await FormComponent.inputLabel('Repository Name').click()
     await browser.keys(testRepositoryName)
 
-    await FromComponent.inputLabel('Service Type').click()
+    await FormComponent.inputLabel('Service Type').click()
     await browser.keys(serviceType)
 
-    await FromComponent.inputLabel('Owning Team').click()
+    await FormComponent.inputLabel('Owning Team').click()
     await browser.keys('Platform')
 
-    await FromComponent.submitButton('Next').click()
+    await FormComponent.submitButton('Next').click()
   })
 
   it('Should be able to view microservice summary', async () => {
@@ -85,7 +85,7 @@ describe('Create microservice', () => {
       )
     ).toExist()
 
-    await FromComponent.submitButton('Create').click()
+    await FormComponent.submitButton('Create').click()
   })
 
   it('Should be redirected to create microservice status page', async () => {
@@ -114,7 +114,7 @@ describe('Create microservice', () => {
       )
     ).toExist()
 
-    await FromComponent.submitButton('View microservice page').click()
+    await FormComponent.submitButton('View microservice page').click()
   })
 
   it('Should be redirected to created microservice page', async () => {
