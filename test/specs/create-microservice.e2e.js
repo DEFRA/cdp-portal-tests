@@ -90,7 +90,7 @@ describe('Create microservice', () => {
 
   it('Should be redirected to create microservice status page', async () => {
     await expect(browser).toHaveTitle(
-      `${testRepositoryName} microservice | Core Delivery Platform - Portal`
+      `Creating ${testRepositoryName} microservice | Core Delivery Platform - Portal`
     )
     await expect(await ServicesPage.navIsActive()).toBe(true)
     await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
@@ -100,13 +100,21 @@ describe('Create microservice', () => {
       )
     ).toExist()
     await expect(ServicesPage.overallProgress()).toHaveText('IN PROGRESS')
+  })
 
-    await ServicesPage.overallProgress('Success').waitForDisplayed({
-      timeout: 20000,
-      timeoutMsg: 'Expected overall status to be successful after 20 seconds'
-    })
+  it('Should be redirected to "success" create microservice page', async () => {
+    await expect(browser).toHaveTitle(
+      `Created ${testRepositoryName} microservice | Core Delivery Platform - Portal`
+    )
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(
+      ServicesPage.appHeadingCaption(
+        `Created the ${testRepositoryName} microservice.`
+      )
+    ).toExist()
 
-    await expect(ServicesPage.overallProgress()).toHaveText('SUCCESS')
+    await FromComponent.submitButton('View microservice page').click()
   })
 
   it('Should be redirected to created microservice page', async () => {

@@ -58,6 +58,12 @@ Use the following command in code:
 browser.debug()
 ```
 
+Or use the npm script:
+
+```bash
+npm run test-local:debug
+```
+
 ## Test suite requirements
 
 - mongodb
