@@ -27,6 +27,10 @@ class Page {
   open(path) {
     return browser.url(path)
   }
+
+  link(value) {
+    return $(`a*=${value}`)
+  }
 }
 
 export { Page }

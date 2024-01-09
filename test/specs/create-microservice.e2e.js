@@ -114,7 +114,7 @@ describe('Create microservice', () => {
       )
     ).toExist()
 
-    await FormComponent.submitButton('View microservice page').click()
+    await ServicesPage.link('new microservices page').click()
   })
 
   it('Should be redirected to created microservice page', async () => {
