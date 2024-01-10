@@ -47,7 +47,7 @@ describe('Create microservice', () => {
       CreateJourneyTestPage.appHeadingTitle('Create a new journey test suite')
     ).toExist()
 
-    await FormComponent.inputLabel('Repository name').click()
+    await FormComponent.inputLabel('Test suite name').click()
     await browser.keys(testRepositoryName)
 
     await FormComponent.inputLabel('Owning Team').click()
