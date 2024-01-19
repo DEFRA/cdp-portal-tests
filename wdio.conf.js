@@ -53,8 +53,6 @@ export const config = {
     {
       maxInstances: 1,
       browserName: 'chrome',
-      hostname: 'localhost',
-      port: 4444,
       'goog:chromeOptions': {
         args: [
           '--no-sandbox',
@@ -98,7 +96,7 @@ export const config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://cdp.127.0.0.1.sslip.io:3333',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
