@@ -1,6 +1,6 @@
 import { Page } from 'page-objects/page'
 
-class CreateJourneyTestPage extends Page {
+class CreatePage extends Page {
   navItem() {
     return super.navItem('create')
   }
@@ -14,4 +14,4 @@ class CreateJourneyTestPage extends Page {
   }
 }
 
-export default new CreateJourneyTestPage()
+export default new CreatePage()

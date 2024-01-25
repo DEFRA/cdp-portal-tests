@@ -1,12 +1,12 @@
 import { browser, expect } from '@wdio/globals'
 
 import HomePage from 'page-objects/home.page'
-import CreateJourneyTestPage from 'page-objects/create-journey-test.page'
+import CreatePage from 'page-objects/create.page'
 import StatusPage from 'page-objects/status.page'
 import FormComponent from 'components/form.component'
 
-describe('Create microservice', () => {
-  const testRepositoryName = `test-suite-${new Date().getTime()}`
+describe('Create journey tests', () => {
+  const testRepositoryName = `jrny-test-suite-${new Date().getTime()}`
 
   it('Login', async () => {
     await HomePage.open()
@@ -20,16 +20,16 @@ describe('Create microservice', () => {
   })
 
   it('Should be on the "Create" page', async () => {
-    await CreateJourneyTestPage.open()
+    await CreatePage.open()
 
     await expect(browser).toHaveTitle(
       'Create | Core Delivery Platform - Portal'
     )
-    await expect(await CreateJourneyTestPage.navIsActive()).toBe(true)
-    await expect(CreateJourneyTestPage.appHeadingTitle('Create')).toExist()
+    await expect(await CreatePage.navIsActive()).toBe(true)
+    await expect(CreatePage.appHeadingTitle('Create')).toExist()
   })
 
-  it('Should be able to choose a Microservice', async () => {
+  it('Should be able to choose journey tests', async () => {
     await expect(
       FormComponent.legend('What would you like to create?')
     ).toExist()
@@ -40,11 +40,11 @@ describe('Create microservice', () => {
 
   it('Should be able to enter journey test details', async () => {
     await expect(browser).toHaveTitle(
-      'Create a new journey test suite | Core Delivery Platform - Portal'
+      'Create journey test suite | Core Delivery Platform - Portal'
     )
-    await expect(await CreateJourneyTestPage.navIsActive()).toBe(true)
+    await expect(await CreatePage.navIsActive()).toBe(true)
     await expect(
-      CreateJourneyTestPage.appHeadingTitle('Create a new journey test suite')
+      CreatePage.appHeadingTitle('Create journey test suite')
     ).toExist()
 
     await FormComponent.inputLabel('Test suite name').click()
@@ -58,14 +58,14 @@ describe('Create microservice', () => {
 
   it('Should be able to view journey test summary', async () => {
     await expect(browser).toHaveTitle(
-      'Create test suite summary | Core Delivery Platform - Portal'
+      'Summary journey test suite | Core Delivery Platform - Portal'
     )
     await expect(
-      CreateJourneyTestPage.appHeadingTitle('Create test suite summary')
+      CreatePage.appHeadingTitle('Summary journey test suite')
     ).toExist()
     await expect(
-      CreateJourneyTestPage.appHeadingCaption(
-        'Information about the new test suite you are going to create.'
+      CreatePage.appHeadingCaption(
+        'Information about the new journey test suite you are going to create.'
       )
     ).toExist()
 

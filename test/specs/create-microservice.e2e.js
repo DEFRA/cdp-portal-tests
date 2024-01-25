@@ -1,7 +1,7 @@
 import { browser, expect } from '@wdio/globals'
 
 import HomePage from 'page-objects/home.page'
-import CreateMicroservicePage from 'page-objects/create-microservice.page'
+import CreatePage from 'page-objects/create.page'
 import ServicesPage from 'page-objects/services.page'
 import FormComponent from 'components/form.component'
 import EntityListComponent from 'components/entity-list.component'
@@ -24,13 +24,13 @@ describe('Create microservice', () => {
   })
 
   it('Should be on the "Create" page', async () => {
-    await CreateMicroservicePage.open()
+    await CreatePage.open()
 
     await expect(browser).toHaveTitle(
       'Create | Core Delivery Platform - Portal'
     )
-    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
-    await expect(CreateMicroservicePage.appHeadingTitle('Create')).toExist()
+    await expect(await CreatePage.navIsActive()).toBe(true)
+    await expect(CreatePage.appHeadingTitle('Create')).toExist()
   })
 
   it('Should be able to choose a Microservice', async () => {
@@ -46,12 +46,12 @@ describe('Create microservice', () => {
     await expect(browser).toHaveTitle(
       'Create a new microservice | Core Delivery Platform - Portal'
     )
-    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
+    await expect(await CreatePage.navIsActive()).toBe(true)
     await expect(
-      CreateMicroservicePage.appHeadingTitle('Create a new microservice')
+      CreatePage.appHeadingTitle('Create a new microservice')
     ).toExist()
     await expect(
-      CreateMicroservicePage.appHeadingCaption(
+      CreatePage.appHeadingCaption(
         'Create a new microservice code repository and infrastructure.'
       )
     ).toExist()
@@ -75,12 +75,12 @@ describe('Create microservice', () => {
     await expect(browser).toHaveTitle(
       'Create microservice summary | Core Delivery Platform - Portal'
     )
-    await expect(await CreateMicroservicePage.navIsActive()).toBe(true)
+    await expect(await CreatePage.navIsActive()).toBe(true)
     await expect(
-      CreateMicroservicePage.appHeadingTitle('Create microservice summary')
+      CreatePage.appHeadingTitle('Create microservice summary')
     ).toExist()
     await expect(
-      CreateMicroservicePage.appHeadingCaption(
+      CreatePage.appHeadingCaption(
         'Information about the new microservice you are going to create.'
       )
     ).toExist()
