@@ -5,8 +5,8 @@ import CreatePage from 'page-objects/create.page'
 import StatusPage from 'page-objects/status.page'
 import FormComponent from 'components/form.component'
 
-describe('Create journey tests', () => {
-  const testRepositoryName = `jrny-test-suite-${new Date().getTime()}`
+describe('Create environment tests', () => {
+  const testRepositoryName = `env-test-suite-${new Date().getTime()}`
 
   it('Login', async () => {
     await HomePage.open()
@@ -29,22 +29,22 @@ describe('Create journey tests', () => {
     await expect(CreatePage.appHeadingTitle('Create')).toExist()
   })
 
-  it('Should be able to choose journey tests', async () => {
+  it('Should be able to choose environment tests', async () => {
     await expect(
       FormComponent.legend('What would you like to create?')
     ).toExist()
 
-    await FormComponent.inputLabel('Journey Tests').click()
+    await FormComponent.inputLabel('Environment Test Suite').click()
     await FormComponent.submitButton('Next').click()
   })
 
-  it('Should be able to enter journey test details', async () => {
+  it('Should be able to enter environment test details', async () => {
     await expect(browser).toHaveTitle(
-      'Create journey test suite | Core Delivery Platform - Portal'
+      'Create environment test suite | Core Delivery Platform - Portal'
     )
     await expect(await CreatePage.navIsActive()).toBe(true)
     await expect(
-      CreatePage.appHeadingTitle('Create journey test suite')
+      CreatePage.appHeadingTitle('Create environment test suite')
     ).toExist()
 
     await FormComponent.inputLabel('Test suite name').click()
@@ -56,16 +56,16 @@ describe('Create journey tests', () => {
     await FormComponent.submitButton('Next').click()
   })
 
-  it('Should be able to view journey test summary', async () => {
+  it('Should be able to view environment test summary', async () => {
     await expect(browser).toHaveTitle(
-      'Summary journey test suite | Core Delivery Platform - Portal'
+      'Summary environment test suite | Core Delivery Platform - Portal'
     )
     await expect(
-      CreatePage.appHeadingTitle('Summary journey test suite')
+      CreatePage.appHeadingTitle('Summary environment test suite')
     ).toExist()
     await expect(
       CreatePage.appHeadingCaption(
-        'Information about the new journey test suite you are going to create.'
+        'Information about the new environment test suite you are going to create.'
       )
     ).toExist()
 
