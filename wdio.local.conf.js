@@ -2,6 +2,7 @@ const allure = require('allure-commandline')
 
 const debug = process.env.DEBUG
 const oneHour = 60 * 60 * 1000
+const oneMinute = 60 * 1000
 
 export const config = {
   //
@@ -158,7 +159,7 @@ export const config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: 'bdd',
-    timeout: debug ? oneHour : 60000
+    timeout: debug ? oneHour : oneMinute
   },
   //
   // =====
