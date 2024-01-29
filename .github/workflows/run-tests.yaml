@@ -37,3 +37,7 @@ jobs:
           docker logs cdp-portal-stubs
           docker logs cdp-portal-frontend
           docker logs cdp-portal-backend
+      - uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
