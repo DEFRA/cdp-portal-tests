@@ -2,8 +2,8 @@ import { browser, expect } from '@wdio/globals'
 
 import HomePage from 'page-objects/home.page'
 import CreatePage from 'page-objects/create.page'
-import StatusPage from 'page-objects/status.page'
 import FormComponent from 'components/form.component'
+import ServicesPage from 'page-objects/services.page'
 
 describe('Create environment tests', () => {
   const testRepositoryName = `env-test-suite-${new Date().getTime()}`
@@ -72,10 +72,32 @@ describe('Create environment tests', () => {
     await FormComponent.submitButton('Create').click()
   })
 
-  it('Should show the status page', async () => {
+  it('Should be redirected to create environment test suite status page', async () => {
     await expect(browser).toHaveTitle(
-      `Status | Core Delivery Platform - Portal`
+      `Creating ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
     )
-    await expect(await StatusPage.banner()).toExist()
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(
+      ServicesPage.appHeadingCaption(
+        `Creating the ${testRepositoryName} environment test suite.`
+      )
+    ).toExist()
+    await expect(ServicesPage.overallProgress()).toHaveText('IN PROGRESS')
+  })
+
+  it('Should be redirected to "success" create environment test suite page', async () => {
+    await expect(browser).toHaveTitle(
+      `Created ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
+    )
+    await expect(await ServicesPage.navIsActive()).toBe(true)
+    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(
+      ServicesPage.appHeadingCaption(
+        `Created the ${testRepositoryName} environment test suite.`
+      )
+    ).toExist()
+
+    await ServicesPage.link('new environment test suite page').click()
   })
 })
