@@ -319,7 +319,6 @@ export const config = {
           return reject(reportError)
         }
 
-        allure(['open'])
         resolve()
       })
     })
