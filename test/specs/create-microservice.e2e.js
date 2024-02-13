@@ -106,8 +106,10 @@ describe('Create microservice', () => {
     await expect(browser).toHaveTitle(
       `Created ${testRepositoryName} microservice | Core Delivery Platform - Portal`
     )
+
     await expect(await ServicesPage.navIsActive()).toBe(true)
     await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+
     await expect(
       ServicesPage.appHeadingCaption(
         `Created the ${testRepositoryName} microservice.`
@@ -123,14 +125,6 @@ describe('Create microservice', () => {
     )
     await expect(await ServicesPage.navIsActive()).toBe(true)
     await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
-
-    await ServicesPage.appHeadingCaption(
-      `Information about the ${testRepositoryName} microservice.`
-    ).waitForDisplayed({
-      timeout: 60000,
-      timeoutMsg:
-        'Expected service page caption status to be appear after 60 seconds'
-    })
 
     await expect(
       ServicesPage.appHeadingCaption(

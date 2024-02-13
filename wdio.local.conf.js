@@ -108,7 +108,7 @@ export const config = {
   baseUrl: 'http://localhost:3000',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 60000,
   waitforInterval: 200,
   //
   // Default timeout in milliseconds for request
