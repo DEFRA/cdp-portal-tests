@@ -3,7 +3,7 @@ import { browser, expect } from '@wdio/globals'
 import HomePage from 'page-objects/home.page'
 import CreatePage from 'page-objects/create.page'
 import FormComponent from 'components/form.component'
-import ServicesPage from 'page-objects/services.page'
+import TestSuitesPage from 'page-objects/test-suites.page'
 
 describe('Create environment tests', () => {
   const testRepositoryName = `env-test-suite-${new Date().getTime()}`
@@ -76,28 +76,28 @@ describe('Create environment tests', () => {
     await expect(browser).toHaveTitle(
       `Creating ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
     )
-    await expect(await ServicesPage.navIsActive()).toBe(true)
-    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(await TestSuitesPage.navIsActive()).toBe(true)
+    await expect(TestSuitesPage.appHeadingTitle(testRepositoryName)).toExist()
     await expect(
-      ServicesPage.appHeadingCaption(
+      TestSuitesPage.appHeadingCaption(
         `Creating the ${testRepositoryName} environment test suite.`
       )
     ).toExist()
-    await expect(ServicesPage.overallProgress()).toHaveText('IN PROGRESS')
+    await expect(TestSuitesPage.overallProgress()).toHaveText('In Progress')
   })
 
   it('Should be redirected to "success" create environment test suite page', async () => {
     await expect(browser).toHaveTitle(
       `Created ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
     )
-    await expect(await ServicesPage.navIsActive()).toBe(true)
-    await expect(ServicesPage.appHeadingTitle(testRepositoryName)).toExist()
+    await expect(await TestSuitesPage.navIsActive()).toBe(true)
+    await expect(TestSuitesPage.appHeadingTitle(testRepositoryName)).toExist()
     await expect(
-      ServicesPage.appHeadingCaption(
+      TestSuitesPage.appHeadingCaption(
         `Created the ${testRepositoryName} environment test suite.`
       )
     ).toExist()
 
-    await ServicesPage.link('new environment test suite page').click()
+    await TestSuitesPage.link('new environment test suite page').click()
   })
 })

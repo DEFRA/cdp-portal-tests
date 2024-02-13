@@ -2,9 +2,9 @@ import { $ } from '@wdio/globals'
 
 import { Page } from 'page-objects/page'
 
-class ServicesPage extends Page {
+class TestSuitesPage extends Page {
   navIsActive() {
-    return super.navIsActive('services')
+    return super.navIsActive('nav-test-suites')
   }
 
   overallProgress(value) {
@@ -12,8 +12,8 @@ class ServicesPage extends Page {
   }
 
   open(value) {
-    return super.open(`/services${value ?? ''}`)
+    return super.open(`/test-suites${value ?? ''}`)
   }
 }
 
-export default new ServicesPage()
+export default new TestSuitesPage()
