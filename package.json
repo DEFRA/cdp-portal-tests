@@ -11,7 +11,7 @@
     "clean": "rm -rf allure-results && rm -rf allure-report",
     "test": "npm run clean && wdio run wdio.conf.js",
     "test:local": "npm run clean && wdio run wdio.local.conf.js",
-    "test-local:debug": "DEBUG=true npm run test-local",
+    "test-local:debug": "DEBUG=true npm run test:local",
     "format": "prettier --write 'test/**/*.js' '**/*.{js,md,json,config.js}'",
     "format:check": "prettier --check 'test/**/*.js' '**/*.{js,md,json,config.js}'",
     "lint": "eslint .",
