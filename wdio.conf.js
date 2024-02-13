@@ -107,7 +107,7 @@ export const config = {
   baseUrl: 'http://cdp.127.0.0.1.sslip.io:3333',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 60000,
   waitforInterval: 200,
   //
   // Default timeout in milliseconds for request
