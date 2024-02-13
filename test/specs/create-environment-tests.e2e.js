@@ -100,4 +100,6 @@ describe('Create environment tests', () => {
 
     await TestSuitesPage.link('new environment test suite page').click()
   })
+
+  // TODO - add /test-suites/${testRepositoryName} test once stubs have been updated
 })
