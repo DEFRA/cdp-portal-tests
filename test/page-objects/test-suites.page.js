@@ -4,7 +4,7 @@ import { Page } from 'page-objects/page'
 
 class TestSuitesPage extends Page {
   navIsActive() {
-    return super.navIsActive('nav-test-suites')
+    return super.navIsActive('test-suites')
   }
 
   overallProgress(value) {
