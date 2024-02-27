@@ -256,12 +256,6 @@ export const config = {
   ) {
     await browser.takeScreenshot()
 
-    if (passed) {
-      browser.executeScript(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Assertions passed"}}'
-      )
-    }
-
     if (error) {
       browser.executeScript(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}'
@@ -310,7 +304,7 @@ export const config = {
     const generation = allure(['generate', 'allure-results', '--clean'])
 
     return new Promise((resolve, reject) => {
-      const generationTimeout = setTimeout(() => reject(reportError), 5000)
+      const generationTimeout = setTimeout(() => reject(reportError), oneMinute)
 
       generation.on('exit', function (exitCode) {
         clearTimeout(generationTimeout)
