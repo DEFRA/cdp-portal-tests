@@ -256,12 +256,6 @@ export const config = {
   ) {
     await browser.takeScreenshot()
 
-    if (passed) {
-      browser.executeScript(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Assertions passed"}}'
-      )
-    }
-
     if (error) {
       browser.executeScript(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}'
