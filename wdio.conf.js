@@ -304,7 +304,7 @@ export const config = {
     const generation = allure(['generate', 'allure-results', '--clean'])
 
     return new Promise((resolve, reject) => {
-      const generationTimeout = setTimeout(() => reject(reportError), 5000)
+      const generationTimeout = setTimeout(() => reject(reportError), oneMinute)
 
       generation.on('exit', function (exitCode) {
         clearTimeout(generationTimeout)
