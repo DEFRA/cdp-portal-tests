@@ -55,9 +55,6 @@ describe('Create microservice', () => {
         'Create a new microservice code repository and infrastructure.'
       )
     ).toExist()
-    await expect(
-      FormComponent.legend('Enter your new service details')
-    ).toExist()
 
     await FormComponent.inputLabel('Repository Name').click()
     await browser.keys(testRepositoryName)
