@@ -1,0 +1,46 @@
+name: Run Tests with BrowserStack
+
+on:
+  workflow_dispatch:
+  workflow_call:
+jobs:
+  build:
+    name: CDP-run-tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Clone the test suite
+        run: git clone --depth 1 https://github.com/DEFRA/cdp-portal-tests.git .
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+      - name: Setup the tests
+        run: npm ci --omit=dev
+      - name: Clone cdp-local-environment
+        run: git clone --depth 1  https://github.com/DEFRA/cdp-local-environment.git
+      - name: Start local environment
+        working-directory: cdp-local-environment
+        run: docker compose up --wait-timeout 300 -d --quiet-pull
+      - name: Start profile
+        working-directory: cdp-local-environment
+        run: docker compose --profile portal up --wait-timeout 300 -d --quiet-pull
+      - name: Run the tests
+        env:
+          BROWSERSTACK_USER: ${{ secrets.BROWSERSTACK_USER }}
+          BROWSERSTACK_KEY: ${{ secrets.BROWSERSTACK_KEY }}
+        run: |
+          docker ps
+          npm run test:browserstack
+      - name: debug
+        if: failure()
+        run: |
+          docker logs cdp-portal-stubs
+          docker logs cdp-portal-frontend
+          docker logs cdp-portal-backend
+      - uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
