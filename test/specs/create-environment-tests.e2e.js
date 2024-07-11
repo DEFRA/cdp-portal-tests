@@ -74,13 +74,13 @@ describe('Create environment tests', () => {
 
   it('Should be redirected to create environment test suite status page', async () => {
     await expect(browser).toHaveTitle(
-      `Creating ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
+      `Creating ${testRepositoryName} test suite | Core Delivery Platform - Portal`
     )
     await expect(await TestSuitesPage.navIsActive()).toBe(true)
     await expect(TestSuitesPage.appHeadingTitle(testRepositoryName)).toExist()
     await expect(
       TestSuitesPage.appHeadingCaption(
-        `Creating the ${testRepositoryName} environment test suite.`
+        `Creating the ${testRepositoryName} test suite.`
       )
     ).toExist()
     await expect(TestSuitesPage.overallProgress()).toHaveText('In Progress')
@@ -88,13 +88,13 @@ describe('Create environment tests', () => {
 
   it('Should be redirected to "success" create environment test suite page', async () => {
     await expect(browser).toHaveTitle(
-      `Created ${testRepositoryName} environment test suite | Core Delivery Platform - Portal`
+      `Created ${testRepositoryName} test suite | Core Delivery Platform - Portal`
     )
     await expect(await TestSuitesPage.navIsActive()).toBe(true)
     await expect(TestSuitesPage.appHeadingTitle(testRepositoryName)).toExist()
     await expect(
       TestSuitesPage.appHeadingCaption(
-        `Created the ${testRepositoryName} environment test suite.`
+        `Created the ${testRepositoryName} test suite.`
       )
     ).toExist()
 
