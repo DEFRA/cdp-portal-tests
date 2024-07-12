@@ -52,14 +52,14 @@ describe('Create microservice', () => {
     ).toExist()
     await expect(
       CreatePage.appHeadingCaption(
-        'Create a new microservice code repository and infrastructure.'
+        'Create a new microservice, code repository with associated dashboards, proxy and infrastructure.'
       )
     ).toExist()
 
-    await FormComponent.inputLabel('Repository Name').click()
+    await FormComponent.inputLabel('Name').click()
     await browser.keys(testRepositoryName)
 
-    await FormComponent.inputLabel('Service Type').click()
+    await FormComponent.inputLabel('Template').click()
     await browser.keys(serviceType)
 
     await FormComponent.inputLabel('Owning Team').click()

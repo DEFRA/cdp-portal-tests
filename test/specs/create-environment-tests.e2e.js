@@ -47,7 +47,7 @@ describe('Create environment tests', () => {
       CreatePage.appHeadingTitle('Create environment test suite')
     ).toExist()
 
-    await FormComponent.inputLabel('Test suite name').click()
+    await FormComponent.inputLabel('Name').click()
     await browser.keys(testRepositoryName)
 
     await FormComponent.inputLabel('Owning Team').click()
