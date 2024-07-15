@@ -47,7 +47,7 @@ describe('Create journey tests', () => {
       CreatePage.appHeadingTitle('Create journey test suite')
     ).toExist()
 
-    await FormComponent.inputLabel('Test suite name').click()
+    await FormComponent.inputLabel('Name').click()
     await browser.keys(testRepositoryName)
 
     await FormComponent.inputLabel('Owning Team').click()
