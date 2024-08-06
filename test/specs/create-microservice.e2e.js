@@ -96,7 +96,7 @@ describe('Create microservice', () => {
         `Creating the ${testRepositoryName} microservice.`
       )
     ).toExist()
-    await expect(ServicesPage.overallProgress()).toHaveText('In Progress')
+    await expect(ServicesPage.overallProgress()).toHaveText('In-progress')
   })
 
   it('Should be redirected to "success" create microservice page', async () => {
