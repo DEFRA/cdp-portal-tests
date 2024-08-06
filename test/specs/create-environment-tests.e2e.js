@@ -83,7 +83,7 @@ describe('Create environment tests', () => {
         `Creating the ${testRepositoryName} test suite.`
       )
     ).toExist()
-    await expect(TestSuitesPage.overallProgress()).toHaveText('In Progress')
+    await expect(TestSuitesPage.overallProgress()).toHaveText('In-progress')
   })
 
   it('Should be redirected to "success" create environment test suite page', async () => {
