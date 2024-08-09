@@ -4,6 +4,7 @@
     "node": true,
     "jest": true
   },
+  "globals": { "before": true },
   "extends": ["standard", "prettier", "plugin:wdio/recommended"],
   "overrides": [],
   "parserOptions": {
