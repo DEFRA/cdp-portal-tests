@@ -1,27 +1,37 @@
 import { browser, $ } from '@wdio/globals'
 
 class Page {
-  get pageHeading() {
+  pageHeading() {
     return $('h1')
   }
 
-  appHeadingTitle(value) {
-    return $(`[data-testid="app-heading-title"]${value ? `*=${value}` : ''}`)
+  navItem(navItemName) {
+    return $(`[data-testid="nav-${navItemName}"]`)
   }
 
-  appHeadingCaption(value) {
-    return $(`[data-testid="app-heading-caption"]${value ? `*=${value}` : ''}`)
-  }
-
-  navItem(itemName) {
-    return $(`[data-testid="nav-${itemName}"]`)
-  }
-
-  async navIsActive(itemName) {
-    const navItem = await this.navItem(itemName)
+  async navIsActive(navItemName) {
+    const navItem = await this.navItem(navItemName)
     const className = await navItem.getAttribute('class')
 
     return className.includes('app-navigation__link--active')
+  }
+
+  logInLink() {
+    return $('[data-testid="app-login-link"]*=' + 'Sign in')
+  }
+
+  logOutLink() {
+    return $('[data-testid="app-login-link"]*=' + 'Sign out')
+  }
+
+  async login() {
+    await this.open('/')
+    await this.logInLink().click()
+  }
+
+  async logout() {
+    await this.open('/')
+    await this.logOutLink().click()
   }
 
   open(path) {
@@ -29,7 +39,7 @@ class Page {
   }
 
   link(value) {
-    return $(`a*=${value}`)
+    return $('a*=' + value)
   }
 }
 

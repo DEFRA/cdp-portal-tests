@@ -8,10 +8,10 @@ describe('Home page', () => {
 
     await expect(browser).toHaveTitle('Home | Core Delivery Platform - Portal')
     await expect(await HomePage.navIsActive()).toBe(true)
-    await expect(HomePage.serviceName).toHaveText(
+    await expect(HomePage.serviceName()).toHaveText(
       'Core Delivery Platform - Portal'
     )
-    await expect(HomePage.pageHeading).toHaveText(
+    await expect(HomePage.pageHeading()).toHaveText(
       'Build your Defra applications on the Core Delivery Platform'
     )
   })

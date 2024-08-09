@@ -1,8 +1,9 @@
 import { $ } from '@wdio/globals'
 
+/** appEntityList component */
 class EntityListComponent {
-  entityLink(value) {
-    return $(`[data-testid="app-entity-link"]${value ? `*=${value}` : ''}`)
+  entityLink(content) {
+    return $('[data-testid="app-entity-link"]*=' + content)
   }
 }
 
