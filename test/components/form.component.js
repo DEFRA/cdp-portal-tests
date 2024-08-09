@@ -1,20 +1,23 @@
 import { $ } from '@wdio/globals'
 
+/**
+ * Form helper component
+ */
 class FormComponent {
-  get form() {
+  form() {
     return $('form')
   }
 
-  legend(value) {
-    return $(`legend*=${value}`)
+  legend(content) {
+    return $('legend*=' + content)
   }
 
-  inputLabel(value) {
-    return $(`label*=${value}`)
+  inputLabel(content) {
+    return $('label*=' + content)
   }
 
-  submitButton(value) {
-    return $(`button*=${value}`)
+  submitButton(content) {
+    return $('button*=' + content)
   }
 }
 
