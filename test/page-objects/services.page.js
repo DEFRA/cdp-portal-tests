@@ -7,8 +7,8 @@ class ServicesPage extends Page {
     return super.navIsActive('services')
   }
 
-  overallProgress(value) {
-    return $(`[data-testid="app-overall-progress"]${value ? `*=${value}` : ''}`)
+  overallProgress() {
+    return $('[data-testid="app-overall-progress"]')
   }
 
   open(value) {
