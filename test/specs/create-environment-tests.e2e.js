@@ -25,7 +25,7 @@ describe('Create environment tests', () => {
     const testRepositoryName = `env-test-suite-${new Date().getTime()}`
 
     before(async () => {
-      await CreatePage.login()
+      await CreatePage.logIn()
       await CreatePage.open()
     })
 

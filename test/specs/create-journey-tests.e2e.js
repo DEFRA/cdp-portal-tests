@@ -25,7 +25,7 @@ describe('Create journey tests', () => {
     const testRepositoryName = `jrny-test-suite-${new Date().getTime()}`
 
     before(async () => {
-      await CreatePage.login()
+      await CreatePage.logIn()
       await CreatePage.open()
     })
 
