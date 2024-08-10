@@ -6,7 +6,7 @@ import ServicesPage from 'page-objects/services.page'
 describe('Services page', () => {
   describe('When logged in', () => {
     before(async () => {
-      await ServicesPage.login()
+      await ServicesPage.logIn()
       await ServicesPage.open()
     })
 

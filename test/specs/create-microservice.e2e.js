@@ -33,7 +33,7 @@ describe('Create microservice', () => {
     const serviceType = serviceTypes[randomServiceType]
 
     before(async () => {
-      await CreatePage.login()
+      await CreatePage.logIn()
       await CreatePage.open()
     })
 

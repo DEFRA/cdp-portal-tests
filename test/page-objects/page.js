@@ -24,12 +24,12 @@ class Page {
     return $('[data-testid="app-login-link"]*=' + 'Sign out')
   }
 
-  async login() {
+  async logIn() {
     await this.open('/')
     await this.logInLink().click()
   }
 
-  async logout() {
+  async logOut() {
     await this.open('/')
     await this.logOutLink().click()
   }
