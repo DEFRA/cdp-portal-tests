@@ -156,19 +156,18 @@ classes or JavaScript hooks, you should use `[data-testid="<name>"]` attributes.
 Using test data attributes allows you to find elements via an explicit testing hook, which rarely changes. This is a
 more robust way to find elements in tests and avoids having to unnecessarily update tests.
 
-For example finding an element by traversing the `DOM`:
+For example:
 
-> Finding an element traversing the DOM using CSS styling classes
+1. Finding an element traversing the DOM using CSS styling classes
 
-1. Find the second button in the grid on the right of the page inside a div with the classes `container` and `grid`
+   > Find the second button in the grid on the right of the page inside a div with the classes `container` and `grid`
 
-> Finding an element using CSS styling classes
+2. Finding an element using CSS styling classes
 
-2. Find the button with the class `app-button` and `app-button--secondary`
+   > Find the button with the class `app-button` and `app-button--secondary`
 
-> Finding an element by data attribute and text content
-
-3. Find the button with the data testid attribute `[data-testid="create-microservice-submit"]` and the text `Save`
+3. Finding an element by data attribute and text content
+   > Find the button with the data testid attribute `[data-testid="create-microservice-submit"]` and the text `Save`
 
 As you can see the last option is much more robust. It avoids using CSS classes that change. It avoids referencing
 and traversing the `DOM`, which can be brittle. It avoids having to update tests when nothing has really changed tests
