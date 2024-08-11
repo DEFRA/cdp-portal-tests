@@ -9,6 +9,11 @@ class Page {
     return $(`[data-testid="nav-${navItemName}"]`)
   }
 
+  /**
+   * Check if a navigation item is active
+   * @param navItemName
+   * @returns {Promise<boolean>}
+   */
   async navIsActive(navItemName) {
     const navItem = await this.navItem(navItemName)
     const className = await navItem.getAttribute('class')

@@ -11,10 +11,10 @@ class HomePage extends Page {
     return $('[data-testid="app-login-username"]')
   }
 
-  navItem() {
-    return super.navItem('home')
-  }
-
+  /**
+   * Check if the home nav link is active
+   * @returns {Promise<boolean>}
+   */
   navIsActive() {
     return super.navIsActive('home')
   }
