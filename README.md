@@ -8,15 +8,15 @@ Cdp Portal test suite
   - [Node.js](#nodejs)
 - [Local development](#local-development)
   - [Setup](#setup)
+- [Test suite requirements](#test-suite-requirements)
+  - [Running portal using cdp-local-environment](#running-portal-using-cdp-local-environment)
+  - [Running portal using cdp-portal-stubs](#running-portal-using-cdp-portal-stubs)
+  - [Running the test suite](#running-the-test-suite)
   - [Debugging](#debugging)
     - [WebdriverIO Plugin](#webdriverio-plugin)
     - [Setup in IntelliJ/Webstorm](#setup-in-intellijwebstorm)
     - [Debug environment variable](#debug-environment-variable)
     - [WebdriverIO debug command](#webdriverio-debug-command)
-- [Test suite requirements](#test-suite-requirements)
-  - [Running portal using cdp-local-environment](#running-portal-using-cdp-local-environment)
-  - [Running portal using cdp-portal-stubs](#running-portal-using-cdp-portal-stubs)
-  - [Running the test suite](#running-the-test-suite)
 - [Best practices](#best-practices)
   - [Finding elements on a page](#finding-elements-on-a-page)
   - [Components](#components)
@@ -47,6 +47,50 @@ Install application dependencies:
 
 ```bash
 npm install
+```
+
+## Test suite requirements
+
+- mongodb
+- redis
+- localstack
+- [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
+- cdp portal running and pointed at stubs/local services
+
+### Running portal using cdp-local-environment
+
+> Note there is currently a bug on macs where this does not work
+
+The easiest way of setting this up:
+
+- clone [cdp-local-environment](https://github.com/defra/cdp-local-environment)
+- start the portal profile
+
+```bash
+$ docker compose --profile portal up
+```
+
+### Running portal using cdp-portal-stubs
+
+You can also set up your local suite of Portal apps via [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
+
+- clone [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
+- start all the applications listed in the [README.md](https://github.com/defra/cdp-portal-stubs#setup)
+
+### Running the test suite
+
+To run the suite headless:
+
+```bash
+$ npm test
+```
+
+To run the test suite with a browser:
+
+> This makes it much easier to debug
+
+```bash
+npm run test-local
 ```
 
 ### Debugging
@@ -97,50 +141,6 @@ Use the following command in code:
 browser.debug()
 ```
 
-## Test suite requirements
-
-- mongodb
-- redis
-- localstack
-- [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
-- cdp portal running and pointed at stubs/local services
-
-### Running portal using cdp-local-environment
-
-> Note there is currently a bug on macs where this does not work
-
-The easiest way of setting this up:
-
-- clone [cdp-local-environment](https://github.com/defra/cdp-local-environment)
-- start the portal profile
-
-```bash
-$ docker compose --profile portal up
-```
-
-### Running portal using cdp-portal-stubs
-
-You can also set up your local suite of Portal apps via [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
-
-- clone [cdp-portal-stubs](https://github.com/defra/cdp-portal-stubs)
-- start all the applications listed in the [README.md](https://github.com/defra/cdp-portal-stubs#setup)
-
-### Running the test suite
-
-To run the suite headless:
-
-```bash
-$ npm test
-```
-
-To run the test suite with a browser:
-
-> This makes it much easier to debug
-
-```bash
-npm run test-local
-```
-
 ## Best practices
 
 - Keep these tests organised, clean and maintainable as this repository is likely to grow in size with the
@@ -170,7 +170,7 @@ Finding an element by a data attribute and text content:
 As you can see, using the second method is more robust and less likely to break or require test updates when the page
 changes.
 
-So to summarise. You can write robust tests:
+To summarise. You can write robust tests by:
 
 - Find elements on the page by a components data attribute - `[data-testid="<name>"]`
 - For a more targeted approach. Find elements on the page via data attribute and text content -
