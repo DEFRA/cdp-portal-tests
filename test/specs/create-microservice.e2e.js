@@ -13,7 +13,7 @@ describe('Create microservice', () => {
       await CreatePage.open()
     })
 
-    it('Should show a "401" page', async () => {
+    it('Should show the "401" error page', async () => {
       await expect(browser).toHaveTitle(
         'Unauthorized | Core Delivery Platform - Portal'
       )
