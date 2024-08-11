@@ -151,8 +151,8 @@ browser.debug()
 
 ### Finding elements in tests
 
-When writing tests, pages and components will change. To avoid constantly updating tests, you should use `
-[data-testid="<name>"]` attributes to find elements, rather than finding elements by traversing the `DOM`. Using test
+When writing tests, pages and components will change. To avoid constantly updating tests, you should use
+`[data-testid="<name>"]` attributes to find elements, rather than finding elements by traversing the `DOM`. Using test
 data attributes allows you to find elements via an explicit testing hook, which rarely changes.
 
 For example finding an element by traversing the `DOM`:
