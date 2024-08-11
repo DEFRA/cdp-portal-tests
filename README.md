@@ -59,13 +59,18 @@ provides full run, debug and breakpoint capabilities in your WebDriverIO tests.
 
 #### Setup in IntelliJ/Webstorm
 
+1. Add a `WebdriverIO` configuration template
 1. `Run -> Edit configurations`
-1. `Edit configuration templates => WebdriverIO`
-1. Add the following to the `WebdriverIO` configuration template:
-   ![WebDriverIO template configuration](docs/webdriverio-plugin/webdriverio-template.png?raw=true)
-1. Add a `tests/specs configuration`:
-   ![WebDriverIO tests/specs configuration](docs/webdriverio-plugin/test-specs.png?raw=true)
-1. You can now run and debug your tests in IntelliJ/Webstorm via your test files controls
+1. `Edit configuration templates -> WebdriverIO`
+1. Add the following values to the `WebdriverIO` configuration template
+1. ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
+1. Add an `All tests configuration`:
+   1. `Run -> Edit configurations`
+   1. `Add new configuration -> WebdriverIO`
+   1. `Add the values shown in the following image`
+   1. ![WebDriverIO all tests configuration](docs/webdriverio-plugin/all-tests.png?raw=true)
+
+You can now run and debug your tests in IntelliJ/Webstorm
 
 #### Debug environment variable
 
@@ -146,9 +151,6 @@ npm run test-local
 - Have a read through [WebDriverIO best practices](https://webdriver.io/docs/bestpractices/) for more
   information
 
-> The more your tests resemble the way your software is used, the more confidence they can give you. - Kent C. Dodds
-> <cite>[Testing Implementation Details](https://kentcdodds.com/blog/testing-implementation-details)</cite>
-
 ### Finding elements on a page
 
 _TL;DR_ - Use `[data-testid="<name>"]` attributes to find elements on a page in tests.
@@ -188,17 +190,6 @@ The [page objects](test/page-objects) are based on the pages/domain objects foun
 
 The [spec files](test/specs) are the flows/features found in the `cdp-portal-frontend`. This is where the tests and
 expectations can be found.
-
-### Further reading
-
-**Kent C. Dodds**
-
-- [The Testing Trophy and Testing Classifications](https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications)
-- [Write tests. Not too many. Mostly integration.](https://kentcdodds.com/blog/write-tests)
-
-**Martin Fowler**
-
-- [The Practical Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
 
 ## Licence
 
