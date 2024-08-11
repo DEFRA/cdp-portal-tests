@@ -60,10 +60,10 @@ provides full run, debug and breakpoint capabilities in your WebDriverIO tests.
 #### Setup in IntelliJ/Webstorm
 
 1. Add a `WebdriverIO` configuration template
-1. `Run -> Edit configurations`
-1. `Edit configuration templates -> WebdriverIO`
-1. Add the following values to the `WebdriverIO` configuration template
-   ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
+   1. `Run -> Edit configurations`
+   1. `Edit configuration templates -> WebdriverIO`
+   1. Add the following values to the `WebdriverIO` configuration template
+      ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
 1. Add an `All tests configuration`:
    1. `Run -> Edit configurations`
    1. `Add new configuration -> WebdriverIO`
