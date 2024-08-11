@@ -15,8 +15,8 @@ class TestSuitesPage extends Page {
     return $('[data-testid="app-overall-progress"]')
   }
 
-  open(value) {
-    return super.open(`/test-suites${value ?? ''}`)
+  open(value = '') {
+    return super.open('/test-suites' + value)
   }
 }
 

@@ -15,8 +15,8 @@ class ServicesPage extends Page {
     return $('[data-testid="app-overall-progress"]')
   }
 
-  open(value) {
-    return super.open(`/services${value ?? ''}`)
+  open(value = '') {
+    return super.open('/services' + value)
   }
 }
 
