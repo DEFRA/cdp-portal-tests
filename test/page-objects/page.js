@@ -21,12 +21,12 @@ class Page {
     return className.includes('app-navigation__link--active')
   }
 
-  logInLink() {
-    return $('[data-testid="app-login-link"]*=' + 'Sign in')
+  logInLink(value = 'Sign in') {
+    return $('[data-testid="app-login-link"]*=' + value)
   }
 
-  logOutLink() {
-    return $('[data-testid="app-login-link"]*=' + 'Sign out')
+  logOutLink(value = 'Sign out') {
+    return $('[data-testid="app-login-link"]*=' + value)
   }
 
   async logIn() {

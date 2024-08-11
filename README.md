@@ -151,20 +151,28 @@ browser.debug()
 
 ### Finding elements in tests
 
-When writing tests, pages and components will change. To avoid constantly updating tests, you should use
-`[data-testid="<name>"]` attributes to find elements, rather than finding elements by traversing the `DOM`. Using test
-data attributes allows you to find elements via an explicit testing hook, which rarely changes.
+When writing tests, pages and components change. To avoid complex, brittle selectors. Or selectors coupled to CSS
+classes or JavaScript hooks, you should use `[data-testid="<name>"]` attributes.
+Using test data attributes allows you to find elements via an explicit testing hook, which rarely changes. This is a
+more robust way to find elements in tests and avoids having to unnecessarily update tests.
 
 For example finding an element by traversing the `DOM`:
 
+> Finding an element traversing the DOM using CSS styling classes
+
 1. Find the second button in the grid on the right of the page inside a div with the classes `container` and `grid`
 
-Finding an element by data attribute and text content:
+> Finding an element using CSS styling classes
 
-2. Find the button with the data testid attribute `[data-testid="create-microservice-submit"]` and the text `Save`
+2. Find the button with the class `app-button` and `app-button--secondary`
 
-As you can see, option 2) is more robust option and will avoid having to update the tests, when nothing real has
-changed.
+> Finding an element by data attribute and text content
+
+3. Find the button with the data testid attribute `[data-testid="create-microservice-submit"]` and the text `Save`
+
+As you can see the last option is much more robust. It avoids using CSS classes that change. It avoids referencing
+and traversing the `DOM`, which can be brittle. It avoids having to update tests when nothing has really changed tests
+wise.
 
 ### Components
 
