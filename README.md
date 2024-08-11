@@ -22,7 +22,6 @@ Cdp Portal test suite
   - [Components](#components)
   - [Page objects](#page-objects)
   - [Spec files](#spec-files)
-  - [Further reading](#further-reading)
 - [Licence](#licence)
   - [About the licence](#about-the-licence)
 
@@ -60,17 +59,17 @@ provides full run, debug and breakpoint capabilities in your WebDriverIO tests.
 #### Setup in IntelliJ/Webstorm
 
 1. Add a `WebdriverIO` configuration template
-   1. `Run -> Edit configurations`
-   1. `Edit configuration templates -> WebdriverIO`
-   1. Add the following values to the `WebdriverIO` configuration template
-      ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
-1. Add an `All tests configuration`:
-   1. `Run -> Edit configurations`
-   1. `Add new configuration -> WebdriverIO`
-   1. `Add the values shown in the following image`
-      ![WebDriverIO all tests configuration](docs/webdriverio-plugin/all-tests.png?raw=true)
-
-You can now run and debug your tests in IntelliJ/Webstorm
+1. `Run -> Edit configurations`
+1. `Edit configuration templates -> WebdriverIO`
+1. Add the following values to the `WebdriverIO` configuration template:
+   ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
+1. Add an `All tests configuration`
+1. `Run -> Edit configurations`
+1. `Add new configuration -> WebdriverIO`
+1. `Add the values shown in the following image`:
+   ![WebDriverIO all tests configuration](docs/webdriverio-plugin/all-tests.png?raw=true)
+1. You can now run and debug your tests in IntelliJ/Webstorm:
+   ![WebDriverIO with test controls](docs/webdriverio-plugin/with-test-controls.png?raw=true)
 
 #### Debug environment variable
 
@@ -174,7 +173,8 @@ changes.
 So to summarise. You can write robust tests:
 
 - Find elements on the page by a components data attribute - `[data-testid="<name>"]`
-- For a more targeted approach. Find elements on the page via data attribute and text content - `[data-testid="<name>"]*=Save`
+- For a more targeted approach. Find elements on the page via data attribute and text content -
+  `[data-testid="<name>"]*=Save`
 - If there is not a `data-testid` attribute on an element, add one in the `cdp-portal-frontend` and raise a Pull Request
 
 ### Components
