@@ -12,13 +12,13 @@ Cdp Portal test suite
   - [Running portal using cdp-local-environment](#running-portal-using-cdp-local-environment)
   - [Running portal using cdp-portal-stubs](#running-portal-using-cdp-portal-stubs)
   - [Running the test suite](#running-the-test-suite)
-- [Debugging](#debugging)
-  - [WebdriverIO Plugin](#webdriverio-plugin)
-  - [Setup in IntelliJ/Webstorm](#setup-in-intellijwebstorm)
-  - [Debug environment variable](#debug-environment-variable)
-  - [WebdriverIO debug command](#webdriverio-debug-command)
+  - [Debugging](#debugging)
+    - [WebdriverIO Plugin](#webdriverio-plugin)
+    - [Setup in IntelliJ/Webstorm](#setup-in-intellijwebstorm)
+    - [Debug environment variable](#debug-environment-variable)
+    - [WebdriverIO debug command](#webdriverio-debug-command)
 - [Best practices](#best-practices)
-  - [Finding elements on a page](#finding-elements-on-a-page)
+  - [Finding elements in tests](#finding-elements-in-tests)
   - [Components](#components)
   - [Page objects](#page-objects)
   - [Spec files](#spec-files)
@@ -147,35 +147,24 @@ browser.debug()
   `cdp-portal-frontend`
 - Test the `cdp-portal-frontend` as a user would use it
 - Test the important flows, not too many, just enough to give you confidence. User Journey tests are expensive
-- Have a read through [WebDriverIO best practices](https://webdriver.io/docs/bestpractices/) for more
-  information
+- Have a read through [WebDriverIO best practices](https://webdriver.io/docs/bestpractices/) for more information
 
-### Finding elements on a page
+### Finding elements in tests
 
-_TL;DR_ - Use `[data-testid="<name>"]` attributes to find elements on a page in tests.
+When writing tests, pages and components will change. To avoid constantly updating tests, you should use `
+[data-testid="<name>"]` attributes to find elements, rather than finding elements by traversing the `DOM`. Using test
+data attributes allows you to find elements via an explicit testing hook, which rarely changes.
 
-When writing tests, you can do a number of things to make your life easier. Pages and components will change, so you
-should avoid finding elements in tests via `css` or `xpath` selectors defined by their location. Using test data
-attributes allows you to find elements by an explicit testing hook. It also signals to developers that this attribute is
-used in tests and should not be removed/updated without care.
+For example finding an element by traversing the `DOM`:
 
-For example finding an element by location:
+1. Find the second button in the grid on the right of the page inside a div with the classes `container` and `grid`
 
-- Find the second button in the grid on the right of the page
+Finding an element by data attribute and text content:
 
-Finding an element by a data attribute and text content:
+2. Find the button with the data testid attribute `[data-testid="create-microservice-submit"]` and the text `Save`
 
-- Find the button with the data testid attribute `[data-testid="<name>"]` and the text `Save`
-
-As you can see, using the second method is more robust and less likely to break or require test updates when the page
-changes.
-
-To summarise. You can write robust tests by:
-
-- Find elements on the page by a components data attribute - `[data-testid="<name>"]`
-- For a more targeted approach. Find elements on the page via data attribute and text content -
-  `[data-testid="<name>"]*=Save`
-- If there is not a `data-testid` attribute on an element, add one in the `cdp-portal-frontend` and raise a Pull Request
+As you can see, option 2) is more robust option and will avoid having to update the tests, when nothing real has
+changed.
 
 ### Components
 
@@ -184,12 +173,13 @@ These helpers provide simple methods to test flows and components.
 
 ### Page objects
 
-The [page objects](test/page-objects) are based on the pages/domain objects found in the `cdp-portal-frontend`.
+The [page objects](test/page-objects) are based on the pages/domain objects found in the `cdp-portal-frontend`. All
+page objects extend from the [Page](test/page-objects/page.js) class which provides common methods for all pages.
 
 ### Spec files
 
-The [spec files](test/specs) are the flows/features found in the `cdp-portal-frontend`. This is where the tests and
-expectations can be found.
+The [specs](test/specs) are the flows/features found in the `cdp-portal-frontend` that we are testing. This is where
+the tests and expectations can be found.
 
 ## Licence
 
