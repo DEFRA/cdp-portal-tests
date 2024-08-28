@@ -133,13 +133,13 @@ export const config = {
   framework: 'mocha',
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  specFileRetries: 0,
+  // specFileRetries: 0,
   //
   // Delay in seconds between the spec file retry attempts
-  specFileRetriesDelay: 0,
+  // specFileRetriesDelay: 0,
   //
   // Whether or not retried spec files should be retried immediately or deferred to the end of the queue
-  specFileRetriesDeferred: true,
+  // specFileRetriesDeferred: true,
   //
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
