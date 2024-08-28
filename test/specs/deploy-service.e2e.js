@@ -147,9 +147,8 @@ describe('Deploy service', () => {
         expect.stringContaining(instanceCount)
       )
       await expect(deploymentSummary).toHaveHTML(expect.stringContaining(cpu))
-      // Memory - TODO align deployments result with whats shown and selected in the Portal frontend
       await expect(deploymentSummary).toHaveHTML(
-        expect.stringContaining('2048')
+        expect.stringContaining(memory)
       )
     })
   })
