@@ -1,8 +1,10 @@
-import { browser, expect } from '@wdio/globals'
+import { $, browser, expect } from '@wdio/globals'
+import { upperFirst, kebabCase } from 'lodash'
 
 import DeployPage from 'page-objects/deploy.page'
 import DeploymentsPage from 'page-objects/deployments.page'
 import FormComponent from 'components/form.component'
+import TabsComponent from 'components/tabs.component'
 import HeadingComponent from 'components/heading.component'
 import ErrorPage from 'page-objects/error.page'
 
@@ -22,6 +24,13 @@ describe('Deploy service', () => {
   })
 
   describe('When logged in', () => {
+    const imageName = 'cdp-portal-frontend'
+    const version = '0.356.0'
+    const environment = 'management'
+    const instanceCount = '2'
+    const cpu = '1024'
+    const memory = '2 GB'
+
     before(async () => {
       await DeployPage.logIn()
       await DeployPage.open()
@@ -40,16 +49,21 @@ describe('Deploy service', () => {
       ).toExist()
 
       await FormComponent.inputLabel('Image Name').click()
-      await browser.keys('cdp-portal-frontend')
+      await browser.keys(imageName)
 
       await FormComponent.inputLabel('Image Version').click()
-      // TODO add a wait here for the ajax to load by waiting for the panel on the right to be populated
-      await browser.keys('0.172.0')
+
+      // Wait for version to appear in info panel
+      await expect(
+        await $('[data-testid="latest-published-version"]*=' + version)
+      ).toBeDisplayed()
+
+      await browser.keys(version)
       await browser.keys('Down arrow')
       await browser.keys('Enter')
 
       await FormComponent.inputLabel('Environment').click()
-      await browser.keys('management')
+      await browser.keys(environment)
 
       await FormComponent.submitButton('Next').click()
     })
@@ -67,13 +81,13 @@ describe('Deploy service', () => {
       ).toExist()
 
       await FormComponent.inputLabel('Instance count').click()
-      await browser.keys('2')
+      await browser.keys(instanceCount)
 
       await FormComponent.inputLabel('CPU size').click()
-      await browser.keys('1024')
+      await browser.keys(cpu)
 
       await FormComponent.inputLabel('Memory allocation').click()
-      await browser.keys('3 GB')
+      await browser.keys(memory)
 
       await FormComponent.submitButton('Next').click()
     })
@@ -90,7 +104,16 @@ describe('Deploy service', () => {
         )
       ).toExist()
 
-      // TODO check summary is correct
+      // Check deploy summary contents
+      const summary = $('[data-testid="deploy-summary"]')
+      await expect(summary).toHaveHTML(expect.stringContaining(imageName))
+      await expect(summary).toHaveHTML(expect.stringContaining(version))
+      await expect(summary).toHaveHTML(
+        expect.stringContaining(upperFirst(kebabCase(environment)))
+      )
+      await expect(summary).toHaveHTML(expect.stringContaining(instanceCount))
+      await expect(summary).toHaveHTML(expect.stringContaining(cpu))
+      await expect(summary).toHaveHTML(expect.stringContaining(memory))
 
       await FormComponent.submitButton('Deploy').click()
     })
@@ -105,8 +128,29 @@ describe('Deploy service', () => {
         HeadingComponent.caption('Microservice deployment information.')
       ).toExist()
 
-      // TODO check env tab is correct
-      // TODO check deployment details are correct
+      await expect(TabsComponent.activeTab()).toHaveText(
+        upperFirst(kebabCase(environment))
+      )
+
+      // Check deployment summary contents
+      const deploymentSummary = $('[data-testid="deployment-summary"]')
+      await expect(deploymentSummary).toHaveHTML(
+        expect.stringContaining(imageName)
+      )
+      await expect(deploymentSummary).toHaveHTML(
+        expect.stringContaining(version)
+      )
+      await expect(deploymentSummary).toHaveHTML(
+        expect.stringContaining(upperFirst(kebabCase(environment)))
+      )
+      await expect(deploymentSummary).toHaveHTML(
+        expect.stringContaining(instanceCount)
+      )
+      await expect(deploymentSummary).toHaveHTML(expect.stringContaining(cpu))
+      // Memory - TODO align deployments result with whats shown and selected in the Portal frontend
+      await expect(deploymentSummary).toHaveHTML(
+        expect.stringContaining('2048')
+      )
     })
   })
 })
