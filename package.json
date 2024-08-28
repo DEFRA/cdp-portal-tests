@@ -33,7 +33,8 @@
     "@wdio/mocha-framework": "8.24.12",
     "@wdio/spec-reporter": "8.24.12",
     "allure-commandline": "2.26.0",
-    "babel-plugin-module-resolver": "5.0.0"
+    "babel-plugin-module-resolver": "5.0.0",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "eslint": "8.55.0",
