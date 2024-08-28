@@ -25,7 +25,7 @@ describe('Deploy service', () => {
 
   describe('When logged in', () => {
     const imageName = 'cdp-portal-frontend'
-    const version = '0.356.0'
+    const version = '0.172.0'
     const environment = 'management'
     const instanceCount = '2'
     const cpu = '1024'
