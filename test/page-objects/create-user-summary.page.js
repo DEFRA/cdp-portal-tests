@@ -2,17 +2,22 @@ import { $ } from '@wdio/globals'
 import { Page } from 'page-objects/page'
 
 class CreateUserSummaryPage extends Page {
-  async aadEmail() {
-    const table = await $('dl')
-    return table.$('./div[1]/dd[1]')
+  aadEmail() {
+    return $(
+      '//dt[normalize-space(text())="AAD user email"]/following-sibling::dd'
+    )
   }
 
-  aadUserName(value) {
-    return $('dd=' + value)
+  aadUserName() {
+    return $(
+      '//dt[normalize-space(text())="AAD user name"]/following-sibling::dd'
+    )
   }
 
-  githubLink(githubId) {
-    return $('=' + githubId)
+  githubLink() {
+    return $(
+      '//dt[normalize-space(text())="GitHub user"]/following-sibling::dd'
+    )
   }
 
   createButton() {

@@ -5,6 +5,8 @@ import AdminPage from 'page-objects/admin.page'
 import CreateUserAadPage from 'page-objects/create-user-aad.page'
 import CreateUserGithubPage from 'page-objects/create-user-github.page'
 import CreateUserSummaryPage from 'page-objects/create-user-summary.page'
+import UserPage from 'page-objects/user.page'
+import FormComponent from 'components/form.component'
 
 describe('When logged in', () => {
   before(async () => {
@@ -60,19 +62,48 @@ describe('When logged in', () => {
     await $('button=Skip').click()
 
     // Check the summary has what we want
-    await expect(
-      await CreateUserSummaryPage.aadEmail('a.stub@test.co')
-    ).toExist()
-    await expect(await CreateUserSummaryPage.aadUserName('A Stub')).toExist()
-    await expect(
-      await CreateUserSummaryPage.githubLink('@cdp-test-441241')
-    ).toExist()
-    await expect(await CreateUserSummaryPage.createButton()).toExist()
+    await expect(await CreateUserSummaryPage.aadEmail()).toHaveText(
+      'a.stub@test.co'
+    )
+    await expect(await CreateUserSummaryPage.aadUserName()).toHaveText('A Stub')
+    await expect(await CreateUserSummaryPage.githubLink()).toHaveText(
+      '@cdp-test-441241'
+    )
 
     // Create the user and check it shows up in the list
-    await CreateUserSummaryPage.createButton().click()
+    await expect(await CreateUserSummaryPage.createButton()).toExist()
+    await (await CreateUserSummaryPage.createButton()).click()
     await expect(browser).toHaveTitle('Users | Core Delivery Platform - Portal')
 
     await $('=A Stub').click()
+  })
+
+  it('Should delete the user it just created', async () => {
+    // From the admin page
+    await AdminPage.open()
+    await $('=A Stub').click()
+
+    // Select the user
+    await expect(browser).toHaveTitle(
+      'A Stub | Core Delivery Platform - Portal'
+    )
+
+    // Check we're on the right page
+    await expect(await UserPage.name()).toHaveText('A Stub')
+    await expect(await UserPage.email()).toHaveText('a.stub@test.co')
+
+    // Click delete
+    await expect(await UserPage.deleteButton()).toExist()
+    await (await UserPage.deleteButton()).click()
+
+    // Click delete again on the confirm page
+    await expect(browser).toHaveTitle(
+      'Confirm user deletion | Core Delivery Platform - Portal'
+    )
+    await FormComponent.submitButton('Delete').click()
+
+    // Check the banner says its deleted ok
+    await expect(browser).toHaveTitle('Users | Core Delivery Platform - Portal')
+    await expect(await $('=A Stub')).not.toExist()
   })
 })
