@@ -1,5 +1,4 @@
 import { Page } from 'page-objects/page'
-import { $ } from '@wdio/globals'
 
 class CreateUserAAD extends Page {
   /**
@@ -10,16 +9,8 @@ class CreateUserAAD extends Page {
     return super.navIsActive('admin')
   }
 
-  searchByAADName() {
-    return $('#aadQuery')
-  }
-
-  searchResult(email) {
-    return $('#email')
-  }
-
-  nextButton() {
-    return $('button=Next')
+  open() {
+    return super.open('/admin/users/find-aad-user')
   }
 }
 

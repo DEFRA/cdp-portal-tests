@@ -19,10 +19,6 @@ class CreateUserSummaryPage extends Page {
       '//dt[normalize-space(text())="GitHub user"]/following-sibling::dd'
     )
   }
-
-  createButton() {
-    return $('button=Create')
-  }
 }
 
 export default new CreateUserSummaryPage()

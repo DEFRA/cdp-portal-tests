@@ -12,10 +12,6 @@ class AdminPage extends Page {
   open(value = '') {
     return super.open('/admin' + value)
   }
-
-  createUserButton() {
-    return $("[href='/admin/users/create']")
-  }
 }
 
 export default new AdminPage()

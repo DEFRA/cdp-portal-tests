@@ -3,7 +3,6 @@ import { $, browser, expect } from '@wdio/globals'
 import HeadingComponent from 'components/heading.component'
 import AdminPage from 'page-objects/admin.page'
 import CreateUserAadPage from 'page-objects/create-user-aad.page'
-import CreateUserGithubPage from 'page-objects/create-user-github.page'
 import CreateUserSummaryPage from 'page-objects/create-user-summary.page'
 import UserPage from 'page-objects/user.page'
 import FormComponent from 'components/form.component'
@@ -15,51 +14,46 @@ describe('When logged in', () => {
   })
 
   it('Create a new user', async () => {
-    // Check we're on the right page
-    await expect(browser).toHaveTitle('Users | Core Delivery Platform - Portal')
-    await expect(await AdminPage.navIsActive()).toBe(true)
-    await expect(HeadingComponent.title('Users')).toExist()
-    await expect(
-      HeadingComponent.caption('Core Delivery Platform users.')
-    ).toExist()
-
-    // Click the Create button
-    await AdminPage.createUserButton().click()
-    await expect(HeadingComponent.title('Find AAD user')).toExist()
+    await CreateUserAadPage.open()
 
     // Link the AAD account
+    await expect(HeadingComponent.title('Find AAD user')).toExist()
     await expect(browser).toHaveTitle(
       'Find AAD user | Core Delivery Platform - Portal'
     )
-    const addInput = await CreateUserAadPage.searchByAADName()
-    await addInput.click()
+
+    // search for our user and select the match
+    await FormComponent.inputLabel('AAD users name or email').click()
     await browser.keys('test')
 
-    await expect(CreateUserAadPage.searchResult('a.stub@test.co')).toExist()
-    await CreateUserAadPage.searchResult('a.stub@test.co').click()
-    await CreateUserAadPage.nextButton().click()
+    const aadMatch = FormComponent.inputLabel('A Stub - a.stub@test.co')
+    await expect(aadMatch).toExist()
+    await aadMatch.click()
 
+    // Submit the AAD form
+    await FormComponent.submitButton('Next').click()
+
+    // Check we're on the github linking page
     await expect(browser).toHaveTitle(
       'Find Defra GitHub User | Core Delivery Platform - Portal'
     )
 
     // Link the GitHub account
-    const githubInput = await CreateUserGithubPage.searchByGitHubName()
-    await githubInput.click()
+    await FormComponent.inputLabel('GitHub username').click()
     await browser.keys('test')
 
-    await expect(await CreateUserGithubPage.searchResult()).toExist()
-    await expect(await CreateUserGithubPage.searchResult()).toHaveValue(
-      'cdp-test-441241'
+    const githubMatch = await FormComponent.inputLabel(
+      '@cdp-test-441241 - Test Testing'
     )
-    await CreateUserGithubPage.searchResult().click()
-    await CreateUserGithubPage.nextButton().click()
+    await expect(githubMatch).toExist()
+    await githubMatch.click()
+    await FormComponent.submitButton('Next').click()
 
     // Skip the VPN page
     await expect(browser).toHaveTitle(
       'Add CDP user details | Core Delivery Platform - Portal'
     )
-    await $('button=Skip').click()
+    await FormComponent.submitButton('Skip').click()
 
     // Check the summary has what we want
     await expect(await CreateUserSummaryPage.aadEmail()).toHaveText(
@@ -71,11 +65,11 @@ describe('When logged in', () => {
     )
 
     // Create the user and check it shows up in the list
-    await expect(await CreateUserSummaryPage.createButton()).toExist()
-    await (await CreateUserSummaryPage.createButton()).click()
+    await expect(FormComponent.submitButton('Create')).toExist()
+    await FormComponent.submitButton('Create').click()
     await expect(browser).toHaveTitle('Users | Core Delivery Platform - Portal')
 
-    await $('=A Stub').click()
+    await expect($('=A Stub')).toExist()
   })
 
   it('Should delete the user it just created', async () => {
