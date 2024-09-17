@@ -108,8 +108,8 @@ export const config = {
   baseUrl: 'http://localhost:3000',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 60000,
-  waitforInterval: 200,
+  waitforTimeout: 6000,
+  waitforInterval: 400,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
