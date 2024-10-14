@@ -29,7 +29,7 @@ describe('Deploy service', () => {
     const environment = 'management'
     const instanceCount = '2'
     const cpu = '1024'
-    const memory = '2 GB'
+    const memory = '2048'
 
     before(async () => {
       await DeployPage.logIn()
@@ -148,7 +148,7 @@ describe('Deploy service', () => {
       )
       await expect(deploymentSummary).toHaveHTML(expect.stringContaining(cpu))
       await expect(deploymentSummary).toHaveHTML(
-        expect.stringContaining(memory)
+        expect.stringContaining('2 GB')
       )
     })
   })
