@@ -18,11 +18,19 @@ class SecretsEnvironmentPage extends Page {
   }
 
   environmentHeader() {
-    return $('#main-content h2.govuk-heading-l')
+    return $('[data-testid="app-environment-header"]')
+  }
+
+  updateHeader() {
+    return $('[data-testid="app-update-header"]')
   }
 
   createSecretButton() {
     return $('[data-testid="app-button"]')
+  }
+
+  updateSecretButton() {
+    return this.createSecretButton()
   }
 
   createSecretName() {
@@ -31,6 +39,24 @@ class SecretsEnvironmentPage extends Page {
 
   createSecretValue() {
     return $('#secret-value')
+  }
+
+  updateSecretValue() {
+    return this.createSecretValue()
+  }
+
+  secretUpdateCell(key) {
+    return $(`[data-testid="app-secret-update-${key.toLowerCase()}"] a`)
+  }
+
+  secretStatus(key, status) {
+    return $(
+      `[data-testid="app-secret-status-${key.toLowerCase()}" ] [data-text="${status}"]`
+    )
+  }
+
+  secretCell(key) {
+    return $(`[data-testid="app-secret-cell-${key.toLowerCase()}"]`)
   }
 }
 
