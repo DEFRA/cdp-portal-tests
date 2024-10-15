@@ -116,12 +116,13 @@ describe('Secrets feature', () => {
         await SecretsPage.createSecretName().setValue(keyName)
         await SecretsPage.createSecretValue().setValue('test-value')
         await SecretsPage.createSecretButton().click()
+        await expect(await SecretsPage.secretCell(keyName)).toExist()
       })
 
       it('Should be a be listed as updated secrets', async () => {
         await SecretsPage.secretUpdateCell(keyName).click()
         await SecretsPage.updateHeader().waitForExist()
-        await SecretsPage.updateSecretValue().setValue('test-value')
+        await SecretsPage.updateSecretValue().setValue('test-updated-value')
         await SecretsPage.updateSecretButton().click()
         await expect(await SecretsPage.secretCell(keyName)).toExist()
         await expect(await SecretsPage.secretUpdateCell(keyName)).toExist()
