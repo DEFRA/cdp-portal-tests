@@ -90,7 +90,13 @@ To run the test suite with a browser:
 > This makes it much easier to debug
 
 ```bash
-npm run test-local
+npm run test:local
+```
+
+To run a specific test with a browser:
+
+```bash
+npm run test:local -- --spec ./test/specs/TESTFILE.js
 ```
 
 ### Debugging
