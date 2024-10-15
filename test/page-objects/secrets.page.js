@@ -1,6 +1,6 @@
 import { Page } from 'page-objects/page'
 
-class SecretsEnvironmentPage extends Page {
+class SecretsPage extends Page {
   /**
    * Check if the services nav link is active
    * @returns {Promise<boolean>}
@@ -10,7 +10,11 @@ class SecretsEnvironmentPage extends Page {
   }
 
   open(serviceName, environment) {
-    return super.open(`services/${serviceName}/secrets/${environment}`)
+    if (environment) {
+      return super.open(`services/${serviceName}/secrets/${environment}`)
+    } else {
+      return super.open(`services/${serviceName}/secrets`)
+    }
   }
 
   secretsSelectedTab(value = 'Secrets') {
@@ -60,4 +64,4 @@ class SecretsEnvironmentPage extends Page {
   }
 }
 
-export default new SecretsEnvironmentPage()
+export default new SecretsPage()
