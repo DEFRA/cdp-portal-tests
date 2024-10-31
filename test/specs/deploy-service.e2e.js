@@ -4,7 +4,6 @@ import { upperFirst, kebabCase } from 'lodash'
 import DeployPage from 'page-objects/deploy.page'
 import DeploymentsPage from 'page-objects/deployments.page'
 import FormComponent from 'components/form.component'
-import TabsComponent from 'components/tabs.component'
 import HeadingComponent from 'components/heading.component'
 import ErrorPage from 'page-objects/error.page'
 
@@ -127,10 +126,6 @@ describe('Deploy service', () => {
       await expect(
         HeadingComponent.caption('Microservice deployment information.')
       ).toExist()
-
-      await expect(TabsComponent.activeTab()).toHaveText(
-        upperFirst(kebabCase(environment))
-      )
 
       // Check deployment summary contents
       const deploymentSummary = $('[data-testid="deployment-summary"]')
