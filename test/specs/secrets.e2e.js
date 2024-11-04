@@ -127,7 +127,7 @@ describe('Secrets feature', () => {
         await expect(await SecretsPage.secretCell(keyName)).toExist()
         await expect(await SecretsPage.secretUpdateCell(keyName)).toExist()
         await expect(
-          await SecretsPage.secretStatus(keyName, 'Available')
+          await SecretsPage.secretStatus(keyName, 'Secret available')
         ).toExist()
       })
     })
