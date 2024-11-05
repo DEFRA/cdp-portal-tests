@@ -91,6 +91,8 @@ describe('Deploy service', () => {
       await FormComponent.submitButton('Next').click()
     })
 
+    const formattedEnvironment = upperFirst(kebabCase(environment))
+
     it('Should be able to view deployment summary', async () => {
       await expect(browser).toHaveTitle(
         'Deploy Service summary | Core Delivery Platform - Portal'
@@ -108,7 +110,7 @@ describe('Deploy service', () => {
       await expect(summary).toHaveHTML(expect.stringContaining(imageName))
       await expect(summary).toHaveHTML(expect.stringContaining(version))
       await expect(summary).toHaveHTML(
-        expect.stringContaining(upperFirst(kebabCase(environment)))
+        expect.stringContaining(formattedEnvironment)
       )
       await expect(summary).toHaveHTML(expect.stringContaining(instanceCount))
       await expect(summary).toHaveHTML(expect.stringContaining(cpu))
@@ -119,12 +121,18 @@ describe('Deploy service', () => {
 
     it('Should be redirected to the deployment page', async () => {
       await expect(browser).toHaveTitle(
-        'cdp-portal-frontend Service Deployment | Core Delivery Platform - Portal'
+        `cdp-portal-frontend deployment - ${formattedEnvironment} | Core Delivery Platform - Portal`
       )
       await expect(await DeploymentsPage.navIsActive()).toBe(true)
-      await expect(HeadingComponent.title('Deployment')).toExist()
       await expect(
-        HeadingComponent.caption('Microservice deployment information.')
+        HeadingComponent.title(
+          `${formattedEnvironment} deployment - ${imageName} - ${version}`
+        )
+      ).toExist()
+      await expect(
+        HeadingComponent.caption(
+          `Microservice deployment information for version ${version} of ${imageName} in the ${formattedEnvironment} environment.`
+        )
       ).toExist()
 
       // Check deployment summary contents
@@ -136,7 +144,7 @@ describe('Deploy service', () => {
         expect.stringContaining(version)
       )
       await expect(deploymentSummary).toHaveHTML(
-        expect.stringContaining(upperFirst(kebabCase(environment)))
+        expect.stringContaining(formattedEnvironment)
       )
       await expect(deploymentSummary).toHaveHTML(
         expect.stringContaining(instanceCount)
