@@ -127,11 +127,15 @@ describe('Deploy service', () => {
       await expect(
         HeadingComponent.title(`${formattedEnvironment} deployment`)
       ).toExist()
-      await expect(
-        HeadingComponent.caption(
-          `Microservice deployment for <strong>${imageName}</strong>, version <strong>${version}</strong>.`
-        )
-      ).toExist()
+
+      const headingCaption = HeadingComponent.caption(
+        'Microservice deployment for'
+      )
+
+      await expect(headingCaption).toExist()
+      await expect(headingCaption).toHaveText(
+        `Microservice deployment for ${imageName}, version ${version}.`
+      )
 
       // Check deployment summary contents
       const deploymentSummary = $('[data-testid="deployment-summary"]')
