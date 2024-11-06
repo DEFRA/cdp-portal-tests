@@ -121,17 +121,15 @@ describe('Deploy service', () => {
 
     it('Should be redirected to the deployment page', async () => {
       await expect(browser).toHaveTitle(
-        `cdp-portal-frontend deployment - ${formattedEnvironment} | Core Delivery Platform - Portal`
+        `${imageName} v${version} deployment - ${formattedEnvironment} | Core Delivery Platform - Portal`
       )
       await expect(await DeploymentsPage.navIsActive()).toBe(true)
       await expect(
-        HeadingComponent.title(
-          `${formattedEnvironment} deployment - ${imageName} - ${version}`
-        )
+        HeadingComponent.title(`${formattedEnvironment} deployment`)
       ).toExist()
       await expect(
         HeadingComponent.caption(
-          `Microservice deployment information for version ${version} of ${imageName} in the ${formattedEnvironment} environment.`
+          `Microservice deployment for <strong>${imageName}</strong>, version <strong>${version}</strong>.`
         )
       ).toExist()
 
