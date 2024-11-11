@@ -82,7 +82,7 @@ describe('Secrets feature', () => {
         await SecretsPage.open(tenantService)
         await expect(await ServicesPage.navIsActive()).toBe(true)
         await expect(await SplitPaneComponent.subNavIsActive('all')).toBe(true)
-        await SplitPaneComponent.subNavItem('management').click()
+        await SplitPaneComponent.subNavItemLink('management').click()
         await expect(SecretsPage.environmentHeader()).toHaveText(
           'Management secrets'
         )

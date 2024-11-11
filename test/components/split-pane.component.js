@@ -7,11 +7,15 @@ class SplitPaneComponent {
   }
 
   subNavItem(navItemName) {
+    return $(`[data-testid="app-subnav-item-${navItemName}"]`)
+  }
+
+  subNavItemLink(navItemName) {
     return $(`[data-testid="app-subnav-link-${navItemName}"]`)
   }
 
   async subNavIsActive(navItemName) {
-    const subNavItem = await this.subNavItem(navItemName)
+    const subNavItem = await this.subNavItemLink(navItemName)
     const className = await subNavItem.getAttribute('class')
 
     return className.includes('app-subnav__section-item--current')
