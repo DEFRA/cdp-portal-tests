@@ -66,8 +66,6 @@ describe('Secrets feature', () => {
     })
 
     describe('When going to an Environment Secrets page', () => {
-      before(async () => {})
-
       it('Should be a page of that environments secrets', async () => {
         await SecretsPage.open(tenantService, 'management')
         await expect(SecretsPage.environmentHeader()).toHaveText(
@@ -110,22 +108,28 @@ describe('Secrets feature', () => {
 
     describe('When updating a secret', () => {
       const suffix = (Math.random() + 1).toString(36).substring(7).toUpperCase()
-      const keyName = `TEST_${suffix}`
+      let keyName
+
       before(async () => {
+        keyName = `TEST_${suffix}`
+
+        // Create a secret to test against
         await SecretsPage.open(tenantService, 'management')
         await SecretsPage.createSecretName().setValue(keyName)
         await SecretsPage.createSecretValue().setValue('test-value')
         await SecretsPage.createSecretButton().click()
-        await expect(await SecretsPage.secretCell(keyName)).toExist()
+
+        await expect(SecretsPage.secretCell(keyName)).toExist()
       })
 
-      it('Should be a be listed as updated secrets', async () => {
-        await SecretsPage.secretUpdateCell(keyName).click()
+      it('Should be listed as updated secrets', async () => {
+        await SecretsPage.secretAction(keyName).click()
         await SecretsPage.updateHeader().waitForExist()
         await SecretsPage.updateSecretValue().setValue('test-updated-value')
         await SecretsPage.updateSecretButton().click()
+
         await expect(await SecretsPage.secretCell(keyName)).toExist()
-        await expect(await SecretsPage.secretUpdateCell(keyName)).toExist()
+        await expect(await SecretsPage.secretActionCell(keyName)).toExist()
         await expect(
           await SecretsPage.secretStatus(keyName, 'Secret available')
         ).toExist()

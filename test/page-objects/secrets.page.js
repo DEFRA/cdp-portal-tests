@@ -49,18 +49,22 @@ class SecretsPage extends Page {
     return this.createSecretValue()
   }
 
-  secretUpdateCell(key) {
-    return $(`[data-testid="app-secret-update-${key.toLowerCase()}"] a`)
+  secretCell(key) {
+    return $(`[data-testid="app-secret-cell-${key.toLowerCase()}"]`)
+  }
+
+  secretAction(key) {
+    return $(`[data-testid="app-secret-action-${key.toLowerCase()}"]`)
+  }
+
+  secretActionCell(key) {
+    return $(`[data-testid="app-secret-action-cell-${key.toLowerCase()}"]`)
   }
 
   secretStatus(key, status) {
     return $(
       `[data-testid="app-secret-status-${key.toLowerCase()}" ] [data-text="${status}"]`
     )
-  }
-
-  secretCell(key) {
-    return $(`[data-testid="app-secret-cell-${key.toLowerCase()}"]`)
   }
 }
 
