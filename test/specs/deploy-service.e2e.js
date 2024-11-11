@@ -121,7 +121,7 @@ describe('Deploy service', () => {
 
     it('Should be redirected to the deployment page', async () => {
       await expect(browser).toHaveTitle(
-        `${imageName} v${version} deployment - ${formattedEnvironment} | Core Delivery Platform - Portal`
+        `${imageName} ${version} deployment - ${formattedEnvironment} | Core Delivery Platform - Portal`
       )
       await expect(await DeploymentsPage.navIsActive()).toBe(true)
       await expect(
