@@ -6,6 +6,7 @@ import FormComponent from 'components/form.component'
 import HeadingComponent from 'components/heading.component'
 import EntityListComponent from 'components/entity-list.component'
 import ErrorPage from 'page-objects/error.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 describe('Create microservice', () => {
   describe('When logged out', () => {
@@ -22,7 +23,7 @@ describe('Create microservice', () => {
     })
   })
 
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     const testRepositoryName = `test-repo-${new Date().getTime()}`
     const serviceTypes = [
       'DotNet Backend',
@@ -33,7 +34,7 @@ describe('Create microservice', () => {
     const serviceType = serviceTypes[randomServiceType]
 
     before(async () => {
-      await CreatePage.logIn()
+      await LoginStubPage.loginAsAdmin()
       await CreatePage.open()
     })
 

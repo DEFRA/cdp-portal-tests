@@ -6,6 +6,7 @@ import DeploymentsPage from 'page-objects/deployments.page'
 import FormComponent from 'components/form.component'
 import HeadingComponent from 'components/heading.component'
 import ErrorPage from 'page-objects/error.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 describe('Deploy service', () => {
   describe('When logged out', () => {
@@ -22,7 +23,7 @@ describe('Deploy service', () => {
     })
   })
 
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     const imageName = 'cdp-portal-frontend'
     const version = '0.172.0'
     const environment = 'management'
@@ -31,7 +32,7 @@ describe('Deploy service', () => {
     const memory = '2048'
 
     before(async () => {
-      await DeployPage.logIn()
+      await LoginStubPage.loginAsAdmin()
       await DeployPage.open()
     })
 

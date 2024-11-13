@@ -5,6 +5,7 @@ import ErrorPage from 'page-objects/error.page'
 import FormComponent from 'components/form.component'
 import HeadingComponent from 'components/heading.component'
 import TestSuitesPage from 'page-objects/test-suites.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 describe('Create environment tests', () => {
   describe('When logged out', () => {
@@ -21,11 +22,11 @@ describe('Create environment tests', () => {
     })
   })
 
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     const testRepositoryName = `env-test-suite-${new Date().getTime()}`
 
     before(async () => {
-      await CreatePage.logIn()
+      await LoginStubPage.loginAsAdmin()
       await CreatePage.open()
     })
 

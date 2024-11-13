@@ -29,7 +29,7 @@ class Page {
     return $('[data-testid="app-login-link"]*=' + value)
   }
 
-  async logIn() {
+  async login() {
     await this.open('/')
     await this.logInLink().click()
   }
