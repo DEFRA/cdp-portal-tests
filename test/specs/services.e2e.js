@@ -2,14 +2,14 @@ import { browser, expect } from '@wdio/globals'
 
 import HeadingComponent from 'components/heading.component'
 import ServicesPage from 'page-objects/services.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 const tenantService = 'cdp-portal-frontend'
 
 describe('Services page', () => {
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     before(async () => {
-      await ServicesPage.logIn()
-      await ServicesPage.open()
+      await LoginStubPage.loginAsAdmin()
     })
 
     it('Should be on the "Services" page', async () => {

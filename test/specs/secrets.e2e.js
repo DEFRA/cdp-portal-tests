@@ -6,6 +6,7 @@ import SplitPaneComponent from 'components/split-pane.component'
 import ServicesPage from 'page-objects/services.page'
 import SecretsPage from '~/test/page-objects/secrets.page'
 import ErrorPage from 'page-objects/error.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 const tenantService = 'cdp-portal-frontend'
 
@@ -22,16 +23,16 @@ describe('Secrets feature', () => {
       await expect(TabsComponent.secondTab()).not.toExist()
     })
 
-    it('Should not be a able to browse to "Secrets" page', async () => {
+    it('Should not be able to browse to "Secrets" page', async () => {
       await SecretsPage.open(tenantService)
       await expect(ErrorPage.title('401')).toExist()
       await expect(ErrorPage.message()).toHaveText('Unauthorized')
     })
   })
 
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     before(async () => {
-      await ServicesPage.logIn()
+      await LoginStubPage.loginAsAdmin()
       await ServicesPage.open(`/${tenantService}`)
       await expect(await ServicesPage.logOutLink()).toHaveText('Sign out')
     })
@@ -50,13 +51,13 @@ describe('Secrets feature', () => {
     })
 
     describe('When navigating to Secrets overview page', () => {
-      it('Should be a able to go direct to "Secrets" overview', async () => {
+      it('Should be able to go direct to "Secrets" overview', async () => {
         await SecretsPage.open(tenantService)
         await expect(SecretsPage.pageHeading()).toHaveText(tenantService)
         await expect(TabsComponent.activeTab()).toHaveText('Secrets')
       })
 
-      it('Should be a overview page of all secrets page', async () => {
+      it('Should be an overview page of all secrets page', async () => {
         await ServicesPage.open(`/${tenantService}`)
         await expect(await TabsComponent.secondTab()).toHaveText('Secrets')
         await TabsComponent.secondTab().click()
@@ -97,7 +98,7 @@ describe('Secrets feature', () => {
       const suffix = (Math.random() + 1).toString(36).substring(7).toUpperCase()
       const keyName = `TEST_${suffix}`
 
-      it('Should be a be listed as available secrets', async () => {
+      it('Should be listed as available secret', async () => {
         await SecretsPage.createSecretName().setValue(keyName)
         await SecretsPage.createSecretValue().setValue('test-value')
         await SecretsPage.createSecretButton().click()

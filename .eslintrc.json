@@ -5,7 +5,8 @@
     "jest": true
   },
   "globals": {
-    "before": true
+    "before": true,
+    "after": true
   },
   "extends": [
     "standard",

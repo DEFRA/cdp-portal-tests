@@ -5,6 +5,7 @@ import FormComponent from 'components/form.component'
 import HeadingComponent from 'components/heading.component'
 import BannerComponent from 'components/banner.component'
 import ErrorPage from 'page-objects/error.page'
+import LoginStubPage from 'page-objects/login-stub.page'
 
 describe('Create journey tests', () => {
   describe('When logged out', () => {
@@ -21,11 +22,11 @@ describe('Create journey tests', () => {
     })
   })
 
-  describe('When logged in', () => {
+  describe('When logged in as admin user', () => {
     const testRepositoryName = `jrny-test-suite-${new Date().getTime()}`
 
     before(async () => {
-      await CreatePage.logIn()
+      await LoginStubPage.loginAsAdmin()
       await CreatePage.open()
     })
 
