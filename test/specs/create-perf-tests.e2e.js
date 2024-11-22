@@ -8,7 +8,7 @@ import ErrorPage from 'page-objects/error.page'
 import LoginStubPage from 'page-objects/login-stub.page'
 import TestSuitesPage from 'page-objects/test-suites.page'
 
-describe('Create journey tests', () => {
+describe('Create perf tests', () => {
   describe('When logged out', () => {
     before(async () => {
       await CreatePage.open()
@@ -24,7 +24,7 @@ describe('Create journey tests', () => {
   })
 
   describe('When logged in as admin user', () => {
-    const testRepositoryName = `jrny-test-suite-${new Date().getTime()}`
+    const testRepositoryName = `perf-test-suite-${new Date().getTime()}`
 
     before(async () => {
       await LoginStubPage.loginAsAdmin()
@@ -39,25 +39,25 @@ describe('Create journey tests', () => {
       await expect(HeadingComponent.title('Create')).toExist()
     })
 
-    it('Should be able to choose journey tests', async () => {
+    it('Should be able to choose perf tests', async () => {
       await expect(
         FormComponent.legend('What would you like to create?')
       ).toExist()
 
-      await FormComponent.inputLabel('Journey Test Suite').click()
+      await FormComponent.inputLabel('Performance Test Suite').click()
       await FormComponent.submitButton('Next').click()
     })
 
-    it('Should be able to enter journey test details', async () => {
+    it('Should be able to enter perf test details', async () => {
       await expect(browser).toHaveTitle(
-        'Create journey test suite | Core Delivery Platform - Portal'
+        'Create performance test suite | Core Delivery Platform - Portal'
       )
       await expect(await CreatePage.navIsActive()).toBe(true)
       await expect(
-        HeadingComponent.title('Create journey test suite')
+        HeadingComponent.title('Create performance test suite')
       ).toExist()
       await expect(HeadingComponent.caption()).toHaveText(
-        'Built using webdriver.io. Capable of running against a live environment or a docker compose setup as part of a GitHub workflow.'
+        'Built using Apache JMeter. Capable of running against a live environment.'
       )
 
       await FormComponent.inputLabel('Name').click()
@@ -69,28 +69,28 @@ describe('Create journey tests', () => {
       await FormComponent.submitButton('Next').click()
     })
 
-    it('Should be able to view journey test summary', async () => {
+    it('Should be able to view perf test summary', async () => {
       await expect(browser).toHaveTitle(
-        'Summary journey test suite | Core Delivery Platform - Portal'
+        'Summary performance test suite | Core Delivery Platform - Portal'
       )
       await expect(
-        HeadingComponent.title('Summary journey test suite')
+        HeadingComponent.title('Summary performance test suite')
       ).toExist()
       await expect(
         HeadingComponent.caption(
-          'Information about the new journey test suite you are going to create.'
+          'Information about the new performance test suite you are going to create.'
         )
       ).toExist()
 
       await FormComponent.submitButton('Create').click()
     })
 
-    it('Should be redirected to create journey test suite status page', async () => {
+    it('Should be redirected to create perf test suite status page', async () => {
       await expect(browser).toHaveTitle(
         `Creating ${testRepositoryName} test suite | Core Delivery Platform - Portal`
       )
       await expect(
-        await BannerComponent.content('Journey test suite creation has started')
+        await BannerComponent.content('Perf test suite creation has started')
       ).toExist()
       await expect(await TestSuitesPage.navIsActive()).toBe(true)
       await expect(HeadingComponent.title(testRepositoryName)).toExist()
@@ -102,7 +102,7 @@ describe('Create journey tests', () => {
       await expect(TestSuitesPage.overallProgress()).toHaveText('In-progress')
     })
 
-    it('Should be redirected to "success" create journey test suite page', async () => {
+    it('Should be redirected to "success" create pref test suite page', async () => {
       await expect(browser).toHaveTitle(
         `Created ${testRepositoryName} test suite | Core Delivery Platform - Portal`
       )
