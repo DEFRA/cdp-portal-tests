@@ -43,7 +43,7 @@ describe('Create journey tests', () => {
         FormComponent.legend('What would you like to create?')
       ).toExist()
 
-      await FormComponent.inputLabel('Journey Tests').click()
+      await FormComponent.inputLabel('Journey Test Suite').click()
       await FormComponent.submitButton('Next').click()
     })
 
@@ -55,6 +55,9 @@ describe('Create journey tests', () => {
       await expect(
         HeadingComponent.title('Create journey test suite')
       ).toExist()
+      await expect(HeadingComponent.caption()).toHaveText(
+        'Built using webdriver.io. Capable of running against a live environment or a docker compose setup as part of a GitHub workflow.'
+      )
 
       await FormComponent.inputLabel('Name').click()
       await browser.keys(testRepositoryName)
