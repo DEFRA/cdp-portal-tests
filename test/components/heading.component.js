@@ -11,7 +11,9 @@ class HeadingComponent {
   }
 
   caption(content) {
-    return $('[data-testid="app-heading-caption"]*=' + content)
+    return $(
+      '[data-testid="app-heading-caption"]' + (content ? '*=' + content : '')
+    )
   }
 }
 
