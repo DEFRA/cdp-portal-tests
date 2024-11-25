@@ -1,13 +1,14 @@
 import { browser, expect } from '@wdio/globals'
 
 import CreatePage from 'page-objects/create.page'
-import ErrorPage from 'page-objects/error.page'
 import FormComponent from 'components/form.component'
 import HeadingComponent from 'components/heading.component'
-import TestSuitesPage from 'page-objects/test-suites.page'
+import BannerComponent from 'components/banner.component'
+import ErrorPage from 'page-objects/error.page'
 import LoginStubPage from 'page-objects/login-stub.page'
+import TestSuitesPage from 'page-objects/test-suites.page'
 
-describe('Create environment tests', () => {
+describe('Create perf tests', () => {
   describe('When logged out', () => {
     before(async () => {
       await CreatePage.open()
@@ -23,7 +24,7 @@ describe('Create environment tests', () => {
   })
 
   describe('When logged in as admin user', () => {
-    const testRepositoryName = `env-test-suite-${new Date().getTime()}`
+    const testRepositoryName = `perf-test-suite-${new Date().getTime()}`
 
     before(async () => {
       await LoginStubPage.loginAsAdmin()
@@ -38,23 +39,26 @@ describe('Create environment tests', () => {
       await expect(HeadingComponent.title('Create')).toExist()
     })
 
-    it('Should be able to choose environment tests', async () => {
+    it('Should be able to choose perf tests', async () => {
       await expect(
         FormComponent.legend('What would you like to create?')
       ).toExist()
 
-      await FormComponent.inputLabel('Environment Test Suite').click()
+      await FormComponent.inputLabel('Performance Test Suite').click()
       await FormComponent.submitButton('Next').click()
     })
 
-    it('Should be able to enter environment test details', async () => {
+    it('Should be able to enter perf test details', async () => {
       await expect(browser).toHaveTitle(
-        'Create environment test suite | Core Delivery Platform - Portal'
+        'Create performance test suite | Core Delivery Platform - Portal'
       )
       await expect(await CreatePage.navIsActive()).toBe(true)
       await expect(
-        HeadingComponent.title('Create environment test suite')
+        HeadingComponent.title('Create performance test suite')
       ).toExist()
+      await expect(HeadingComponent.caption()).toHaveText(
+        'Built using Apache JMeter. Capable of running against a live environment.'
+      )
 
       await FormComponent.inputLabel('Name').click()
       await browser.keys(testRepositoryName)
@@ -65,26 +69,29 @@ describe('Create environment tests', () => {
       await FormComponent.submitButton('Next').click()
     })
 
-    it('Should be able to view environment test summary', async () => {
+    it('Should be able to view perf test summary', async () => {
       await expect(browser).toHaveTitle(
-        'Summary environment test suite | Core Delivery Platform - Portal'
+        'Summary performance test suite | Core Delivery Platform - Portal'
       )
       await expect(
-        HeadingComponent.title('Summary environment test suite')
+        HeadingComponent.title('Summary performance test suite')
       ).toExist()
       await expect(
         HeadingComponent.caption(
-          'Information about the new environment test suite you are going to create.'
+          'Information about the new performance test suite you are going to create.'
         )
       ).toExist()
 
       await FormComponent.submitButton('Create').click()
     })
 
-    it('Should be redirected to create environment test suite status page', async () => {
+    it('Should be redirected to create perf test suite status page', async () => {
       await expect(browser).toHaveTitle(
         `Creating ${testRepositoryName} test suite | Core Delivery Platform - Portal`
       )
+      await expect(
+        await BannerComponent.content('Perf test suite creation has started')
+      ).toExist()
       await expect(await TestSuitesPage.navIsActive()).toBe(true)
       await expect(HeadingComponent.title(testRepositoryName)).toExist()
       await expect(
@@ -95,7 +102,7 @@ describe('Create environment tests', () => {
       await expect(TestSuitesPage.overallProgress()).toHaveText('In-progress')
     })
 
-    it('Should be redirected to "success" create environment test suite page', async () => {
+    it('Should be redirected to "success" create pref test suite page', async () => {
       await expect(browser).toHaveTitle(
         `Created ${testRepositoryName} test suite | Core Delivery Platform - Portal`
       )
@@ -107,9 +114,7 @@ describe('Create environment tests', () => {
         )
       ).toExist()
 
-      await TestSuitesPage.link('new environment test suite page').click()
+      await TestSuitesPage.link('new test suite page').click()
     })
-
-    // TODO - add /test-suites/${testRepositoryName} test once stubs have been updated
   })
 })

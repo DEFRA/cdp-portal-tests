@@ -6,6 +6,7 @@ import HeadingComponent from 'components/heading.component'
 import BannerComponent from 'components/banner.component'
 import ErrorPage from 'page-objects/error.page'
 import LoginStubPage from 'page-objects/login-stub.page'
+import TestSuitesPage from 'page-objects/test-suites.page'
 
 describe('Create journey tests', () => {
   describe('When logged out', () => {
@@ -43,7 +44,7 @@ describe('Create journey tests', () => {
         FormComponent.legend('What would you like to create?')
       ).toExist()
 
-      await FormComponent.inputLabel('Journey Tests').click()
+      await FormComponent.inputLabel('Journey Test Suite').click()
       await FormComponent.submitButton('Next').click()
     })
 
@@ -55,6 +56,9 @@ describe('Create journey tests', () => {
       await expect(
         HeadingComponent.title('Create journey test suite')
       ).toExist()
+      await expect(HeadingComponent.caption()).toHaveText(
+        'Built using webdriver.io. Capable of running against a live environment or a docker compose setup as part of a GitHub workflow.'
+      )
 
       await FormComponent.inputLabel('Name').click()
       await browser.keys(testRepositoryName)
@@ -81,13 +85,36 @@ describe('Create journey tests', () => {
       await FormComponent.submitButton('Create').click()
     })
 
-    it('Should show the status page', async () => {
+    it('Should be redirected to create journey test suite status page', async () => {
       await expect(browser).toHaveTitle(
-        'Status | Core Delivery Platform - Portal'
+        `Creating ${testRepositoryName} test suite | Core Delivery Platform - Portal`
       )
       await expect(
-        await BannerComponent.content('Test suite creation has started')
+        await BannerComponent.content('Journey test suite creation has started')
       ).toExist()
+      await expect(await TestSuitesPage.navIsActive()).toBe(true)
+      await expect(HeadingComponent.title(testRepositoryName)).toExist()
+      await expect(
+        HeadingComponent.caption(
+          `Creating the ${testRepositoryName} test suite.`
+        )
+      ).toExist()
+      await expect(TestSuitesPage.overallProgress()).toHaveText('In-progress')
+    })
+
+    it('Should be redirected to "success" create journey test suite page', async () => {
+      await expect(browser).toHaveTitle(
+        `Created ${testRepositoryName} test suite | Core Delivery Platform - Portal`
+      )
+      await expect(await TestSuitesPage.navIsActive()).toBe(true)
+      await expect(HeadingComponent.title(testRepositoryName)).toExist()
+      await expect(
+        HeadingComponent.caption(
+          `Created the ${testRepositoryName} test suite.`
+        )
+      ).toExist()
+
+      await TestSuitesPage.link('new test suite page').click()
     })
   })
 })

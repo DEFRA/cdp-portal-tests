@@ -65,7 +65,7 @@ describe('Create microservice', () => {
       ).toExist()
       await expect(
         HeadingComponent.caption(
-          'Create a new microservice, code repository with associated dashboards, proxy and infrastructure.'
+          'With associated dashboards, proxy and infrastructure.'
         )
       ).toExist()
 
