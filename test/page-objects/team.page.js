@@ -11,8 +11,18 @@ class TeamPage extends Page {
     return await SplitPaneComponent.subNavIsActive('teams')
   }
 
-  memberItem(content) {
-    return $('[data-testid="app-member-item"]*=' + content)
+  teamMember(content) {
+    return $('[data-testid="team-member"]*=' + content)
+  }
+
+  removeButton(name) {
+    const memberRow = $$('[data-testid="team-members"] tr').find(async (tr) => {
+      const textContent = await tr.getText()
+
+      return textContent.includes(name)
+    })
+
+    return memberRow.$('[data-testid="remove-member-button"]')
   }
 
   open(value) {

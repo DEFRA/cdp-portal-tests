@@ -63,7 +63,7 @@ class SecretsPage extends Page {
 
   secretStatus(key, status) {
     return $(
-      `[data-testid="app-secret-status-${key.toLowerCase()}" ] [data-text="${status}"]`
+      `[data-testid="app-secret-status-${key.toLowerCase()}"] [data-text="${status}"]`
     )
   }
 }

@@ -11,13 +11,23 @@ class AdminTeamPage extends Page {
     return await SplitPaneComponent.subNavIsActive('teams')
   }
 
-  memberLink(content) {
-    return $('[data-testid="app-member-link"]*=' + content)
+  teamMembers() {
+    return $('[data-testid="admin-team-members"]')
   }
 
-  open(value) {
-    return super.open('/admin/teams/' + value)
+  removeButton(name) {
+    const adminMemberRow = $$('[data-testid="admin-team-members"] tr').find(
+      async (tr) => {
+        const textContent = await tr.getText()
+
+        return textContent.includes(name)
+      }
+    )
+
+    return adminMemberRow.$('[data-testid="admin-remove-member-button"]')
   }
+
+  open(value) {}
 }
 
 export default new AdminTeamPage()

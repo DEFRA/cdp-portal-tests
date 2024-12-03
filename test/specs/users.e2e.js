@@ -1,6 +1,7 @@
 import { browser, expect } from '@wdio/globals'
 
 import HeadingComponent from 'components/heading.component'
+import PageHeadingComponent from 'components/page-heading.component'
 import AdminPage from 'page-objects/admin.page'
 import UsersPage from 'page-objects/users.page'
 import FormComponent from 'components/form.component'
@@ -11,33 +12,33 @@ import LoginStubPage from 'page-objects/login-stub.page'
 import AdminTeamPage from 'page-objects/admin-team.page'
 import TeamPage from 'page-objects/team.page'
 
+const mockUserName = 'A Stub'
+
 async function onTheAdminUsersPage() {
   await expect(browser).toHaveTitle('Users | Core Delivery Platform - Portal')
   await expect(await AdminPage.navIsActive()).toBe(true)
   await expect(await UsersPage.subNavIsActive()).toBe(true)
-  await expect(HeadingComponent.title('Users')).toExist()
-  await expect(
-    HeadingComponent.caption('Core Delivery Platform users.')
-  ).toExist()
+  await expect(PageHeadingComponent.title('Users')).toExist()
 }
 
-async function onThePlatformTeamPage() {
+async function onTheAdminPlatformTeamPage() {
   await expect(browser).toHaveTitle(
-    'Platform | Core Delivery Platform - Portal'
+    'Platform Team | Core Delivery Platform - Portal'
   )
   await expect(await AdminPage.navIsActive()).toBe(true)
   await expect(await AdminTeamPage.subNavIsActive()).toBe(true)
-  await expect(HeadingComponent.title('Platform')).toExist()
-  await expect(HeadingComponent.caption('Team details.')).toExist()
+  await expect(PageHeadingComponent.title('Platform')).toExist()
+  await expect(PageHeadingComponent.caption('Team')).toExist()
 }
 
 async function onTheTestUsersPage() {
   await expect(browser).toHaveTitle('A Stub | Core Delivery Platform - Portal')
   await expect(await AdminPage.navIsActive()).toBe(true)
   await expect(await UsersPage.subNavIsActive()).toBe(true)
-  await expect(HeadingComponent.title('A Stub')).toExist()
-  await expect(HeadingComponent.caption('User details.')).toExist()
+  await expect(PageHeadingComponent.caption('User')).toExist()
+  await expect(PageHeadingComponent.title(mockUserName)).toExist()
 }
+
 async function searchAndSelectACdpUser() {
   await FormComponent.inputLabel('CDP users name or email').click()
   await browser.keys('test')
@@ -64,19 +65,15 @@ describe('Users', () => {
       })
 
       it('Should be able to go to the Create user flow', async () => {
-        await LinkComponent.link('create-user-button', 'Create').click()
+        await PageHeadingComponent.cta('Create new user').click()
 
         await expect(browser).toHaveTitle(
-          'Find AAD user | Core Delivery Platform - Portal'
+          'Find DEFRA user | Core Delivery Platform - Portal'
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await UsersPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Find AAD user')).toExist()
-        await expect(
-          HeadingComponent.caption(
-            'Search for the Defra Azure Active Directory (AAD) user.'
-          )
-        ).toExist()
+        await expect(PageHeadingComponent.title('DEFRA user')).toExist()
+        await expect(PageHeadingComponent.caption('Find')).toExist()
       })
 
       it('Should be able to find AAD user', async () => {
@@ -98,10 +95,8 @@ describe('Users', () => {
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await UsersPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Find Defra GitHub User')).toExist()
-        await expect(
-          HeadingComponent.caption('Search for the Defra GitHub user.')
-        ).toExist()
+        await expect(PageHeadingComponent.title('DEFRA GitHub User')).toExist()
+        await expect(PageHeadingComponent.caption('Find')).toExist()
       })
 
       it('Should be able to find GitHub user', async () => {
@@ -118,14 +113,12 @@ describe('Users', () => {
 
       it('Should be on the User Details page', async () => {
         await expect(browser).toHaveTitle(
-          'Add CDP user details | Core Delivery Platform - Portal'
+          'Add User Details | Core Delivery Platform - Portal'
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await UsersPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Add CDP user details')).toExist()
-        await expect(
-          HeadingComponent.caption('Add Core Delivery Platform user details.')
-        ).toExist()
+        await expect(PageHeadingComponent.title('User Details')).toExist()
+        await expect(PageHeadingComponent.caption('Add')).toExist()
       })
 
       it('Should be able to Skip to summary', async () => {
@@ -134,16 +127,14 @@ describe('Users', () => {
 
       it('Should be on the User Summary page', async () => {
         await expect(browser).toHaveTitle(
-          'Create user summary | Core Delivery Platform - Portal'
+          'Create User Summary | Core Delivery Platform - Portal'
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await UsersPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Create user summary')).toExist()
         await expect(
-          HeadingComponent.caption(
-            'Information about the user you are going to create.'
-          )
+          PageHeadingComponent.caption('Create User Summary')
         ).toExist()
+        await expect(PageHeadingComponent.title(mockUserName)).toExist()
       })
 
       it('User Summary page Should contain expected details', async () => {
@@ -152,7 +143,7 @@ describe('Users', () => {
         ).toHaveText('a.stub@test.co')
         await expect(
           await GovukSummaryListComponent.row('aad-user-name')
-        ).toHaveText('A Stub')
+        ).toHaveText(mockUserName)
         await expect(
           await GovukSummaryListComponent.row('github-user')
         ).toHaveText('@cdp-test-441241')
@@ -181,7 +172,7 @@ describe('Users', () => {
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await AdminTeamPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Teams')).toExist()
+        await expect(PageHeadingComponent.title('Teams')).toExist()
 
         await expect(EntityListComponent.content('Platform')).toExist()
         await expect(EntityListComponent.content('@cdp-platform')).toExist()
@@ -189,20 +180,23 @@ describe('Users', () => {
 
       it("Should be able to go to the Platform Team's page", async () => {
         await LinkComponent.link('app-entity-link', 'Platform').click()
-        await onThePlatformTeamPage()
+        await onTheAdminPlatformTeamPage()
       })
 
       it('Should be able to add a user to the team', async () => {
-        await LinkComponent.link('add-button', 'Add').click()
+        await LinkComponent.link(
+          'admin-add-team-member',
+          'Add member to team'
+        ).click()
 
         await expect(browser).toHaveTitle(
-          'Add team members | Core Delivery Platform - Portal'
+          'Add Team Member | Core Delivery Platform - Portal'
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await AdminTeamPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Add team members')).toExist()
+        await expect(PageHeadingComponent.title('Platform')).toExist()
         await expect(
-          HeadingComponent.caption('Search for Core Delivery Platform user.')
+          PageHeadingComponent.caption('Add Member to Team')
         ).toExist()
       })
 
@@ -211,30 +205,36 @@ describe('Users', () => {
       })
 
       it('Should be able to see the added user', async () => {
-        await onThePlatformTeamPage()
+        await onTheAdminPlatformTeamPage()
 
-        await expect(AdminTeamPage.memberLink('A Stub')).toExist()
+        await expect(AdminTeamPage.teamMembers().getText()).toContain(
+          mockUserName
+        )
       })
 
       it('Clicking on the added user takes should go to user details page, showing the team', async () => {
-        await LinkComponent.link('app-member-link', 'A Stub').click()
+        await LinkComponent.link('app-link', mockUserName).click()
         await onTheTestUsersPage()
-        await expect(
-          LinkComponent.link('app-entity-link', 'Platform')
-        ).toExist()
+        await expect(LinkComponent.link('app-link', 'Platform')).toExist()
       })
 
       it('Clicking on the team should take you to the Team page', async () => {
-        await LinkComponent.link('app-entity-link', 'Platform').click()
-        await onThePlatformTeamPage()
+        await LinkComponent.link('app-link', 'Platform').click()
+        await onTheAdminPlatformTeamPage()
       })
 
       it('Should be able to remove the user from the team', async () => {
+        await expect(AdminTeamPage.teamMembers().getText()).toContain(
+          mockUserName
+        )
+
+        await AdminTeamPage.removeButton(mockUserName).click()
+
         await FormComponent.submitButtonWithTestId(
           'Remove',
-          'remove-member-buttonAStub'
+          'remove-member-button'
         ).click()
-        await onThePlatformTeamPage()
+        await onTheAdminPlatformTeamPage()
 
         await expect(
           HeadingComponent.content('Member removed from team')
@@ -279,15 +279,11 @@ describe('Users', () => {
           'Add team members | Core Delivery Platform - Portal'
         )
         await searchAndSelectACdpUser()
-        await expect(HeadingComponent.title('TenantTeam1')).toExist()
       })
 
       it('Should see the user and be able to remove them', async () => {
-        await expect(TeamPage.memberItem('A Stub')).toExist()
-        await FormComponent.submitButtonWithTestId(
-          'Remove',
-          'remove-member-buttonAStub'
-        ).click()
+        await expect(TeamPage.teamMember(mockUserName)).toExist()
+        await TeamPage.removeButton(mockUserName).click()
 
         await expect(browser).toHaveTitle(
           'TenantTeam1 team | Core Delivery Platform - Portal'
@@ -327,7 +323,7 @@ describe('Users', () => {
     })
   })
 
-  describe('When logged in again as admin', () => {
+  describe('When logged in as admin', () => {
     before(async () => {
       await LoginStubPage.loginAsAdmin()
       await AdminPage.open()
@@ -340,37 +336,38 @@ describe('Users', () => {
       })
 
       it('Should be able to go to the User page', async () => {
-        await LinkComponent.link('app-entity-link', 'A Stub').click()
+        await LinkComponent.link('app-entity-link', mockUserName).click()
         await onTheTestUsersPage()
       })
 
       it('Should be able to go to the Delete user flow', async () => {
-        await LinkComponent.link('delete-user-button', 'Delete').click()
+        await LinkComponent.link('admin-delete-user', 'Delete user').click()
 
         await expect(browser).toHaveTitle(
-          'Confirm user deletion | Core Delivery Platform - Portal'
+          'Confirm User Deletion | Core Delivery Platform - Portal'
         )
         await expect(await AdminPage.navIsActive()).toBe(true)
         await expect(await UsersPage.subNavIsActive()).toBe(true)
-        await expect(HeadingComponent.title('Confirm user deletion')).toExist()
-        await expect(
-          HeadingComponent.caption(
-            'Permanently delete user from the Core Delivery Platform.'
-          )
-        ).toExist()
+        await expect(PageHeadingComponent.caption('Delete User')).toExist()
+        await expect(PageHeadingComponent.title(mockUserName)).toExist()
       })
 
       it('Should be able to Delete the user', async () => {
-        await FormComponent.submitButton('Delete').click()
+        await FormComponent.submitButton('Delete user').click()
       })
 
       it('Should be on the "Admin Users" list page', async () => {
         await onTheAdminUsersPage()
       })
 
-      it('Should have deleted the user', async () => {
-        await expect(HeadingComponent.title('A Stub')).not.toExist()
-        await expect(HeadingComponent.caption('User details.')).not.toExist()
+      it('Should not have deleted the user', async () => {
+        await expect(EntityListComponent.content('A Stub')).not.toExist()
+        await expect(
+          EntityListComponent.content('a.stub@test.co')
+        ).not.toExist()
+        await expect(
+          EntityListComponent.content('@cdp-test-441241')
+        ).not.toExist()
       })
     })
   })

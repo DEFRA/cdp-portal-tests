@@ -48,7 +48,7 @@ describe('Create microservice', () => {
 
     it('Should be able to choose a Microservice', async () => {
       await expect(
-        FormComponent.legend('What would you like to create?')
+        HeadingComponent.caption('What would you like to create?')
       ).toExist()
 
       await FormComponent.inputLabel('Microservice').click()

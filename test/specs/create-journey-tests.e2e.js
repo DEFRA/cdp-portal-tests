@@ -41,7 +41,7 @@ describe('Create journey tests', () => {
 
     it('Should be able to choose journey tests', async () => {
       await expect(
-        FormComponent.legend('What would you like to create?')
+        HeadingComponent.caption('What would you like to create?')
       ).toExist()
 
       await FormComponent.inputLabel('Journey Test Suite').click()
