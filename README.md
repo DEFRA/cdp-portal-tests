@@ -87,8 +87,6 @@ $ npm test
 
 To run the test suite with a browser:
 
-> This makes it much easier to debug
-
 ```bash
 npm run test:local
 ```
@@ -97,6 +95,15 @@ To run a specific test with a browser:
 
 ```bash
 npm run test:local -- --spec ./test/specs/TESTFILE.js
+```
+
+To run the test suite against `cdp-local-environment`:
+
+> Clone and follow the instructions in the [cdp-local-environment](https://github.com/DEFRA/cdp-local-environment)
+> repository
+
+```bash
+npm run test:docker
 ```
 
 ### Debugging
@@ -112,14 +119,18 @@ provides full run, debug and breakpoint capabilities in your WebDriverIO tests.
 1. `Run -> Edit configurations`
 1. `Edit configuration templates -> WebdriverIO`
 1. Add the following values to the `WebdriverIO` configuration template:
-   ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png?raw=true)
+   ![WebDriverIO configuration template](docs/webdriverio-plugin/webdriverio-configuration-template.png)
 1. Add an `All tests configuration`
 1. `Run -> Edit configurations`
 1. `Add new configuration -> WebdriverIO`
 1. `Add the values shown in the following image`:
-   ![WebDriverIO all tests configuration](docs/webdriverio-plugin/all-tests.png?raw=true)
+   ![WebDriverIO all tests configuration](docs/webdriverio-plugin/all-tests.png)
 1. You can now run and debug your tests in IntelliJ/Webstorm:
-   ![WebDriverIO with test controls](docs/webdriverio-plugin/with-test-controls.png?raw=true)
+   ![WebDriverIO with test controls](docs/webdriverio-plugin/with-test-controls.png)
+
+> [!NOTE]
+> If you wish to run against cdp-local-environment, you will need to set the `Wdio config file` to point at `wdio.
+docker.conf.js` in the `WebdriverIO` configuration template:
 
 #### Debug environment variable
 
