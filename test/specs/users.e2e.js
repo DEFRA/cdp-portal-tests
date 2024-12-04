@@ -1,5 +1,6 @@
 import { browser, expect } from '@wdio/globals'
 
+import { createUser, deleteUser } from '~/test/helpers/create-user'
 import HeadingComponent from 'components/heading.component'
 import FormComponent from 'components/form.component'
 import LinkComponent from 'components/link.component'
@@ -24,6 +25,7 @@ async function searchAndSelectACdpUser() {
 describe('Users', () => {
   describe('When logged in as non-admin', () => {
     before(async () => {
+      await createUser('test')
       await LoginStubPage.loginAsNonAdmin()
     })
 
@@ -95,6 +97,7 @@ describe('Users', () => {
 
     after(async () => {
       await LoginStubPage.logOut()
+      await deleteUser('A Stub')
     })
   })
 })
