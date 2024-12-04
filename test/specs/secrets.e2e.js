@@ -132,10 +132,7 @@ describe('Secrets feature', () => {
         await expect(await SecretsPage.secretCell(keyName)).toExist()
         await expect(await SecretsPage.secretActionCell(keyName)).toExist()
         await expect(
-          await SecretsPage.secretStatus(
-            keyName,
-            'Secret available'
-          ).waitForExist({ timeout: 20000 }) // Secrets take a while to update
+          await SecretsPage.secretStatus(keyName, 'Secret available')
         ).toExist()
       })
     })
