@@ -14,6 +14,7 @@ async function createUser(searchTerm) {
   await FormComponent.inputLabel('AAD users name or email').click()
   await browser.keys(searchTerm)
   await FormComponent.inputLabel(searchTerm).click()
+  await FormComponent.submitButton('Next').click()
 
   // GitHub user
   await FormComponent.inputLabel('GitHub username').click()
