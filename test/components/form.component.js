@@ -19,10 +19,6 @@ class FormComponent {
   submitButton(content) {
     return $('button*=' + content)
   }
-
-  submitButtonWithTestId(content, testId) {
-    return $(`button[data-testid="${testId}"]*=` + content)
-  }
 }
 
 export default new FormComponent()

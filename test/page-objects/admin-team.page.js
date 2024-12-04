@@ -16,18 +16,16 @@ class AdminTeamPage extends Page {
   }
 
   removeButton(name) {
-    const adminMemberRow = $$('[data-testid="admin-team-members"] tr').find(
-      async (tr) => {
-        const textContent = await tr.getText()
+    const listItem = $$('[data-testid="admin-team-members"] li').find(
+      async (li) => {
+        const textContent = await li.getText()
 
         return textContent.includes(name)
       }
     )
 
-    return adminMemberRow.$('[data-testid="admin-remove-member-button"]')
+    return listItem.$('a[data-testid="app-link"]*=Remove')
   }
-
-  open(value) {}
 }
 
 export default new AdminTeamPage()
