@@ -210,8 +210,8 @@ describe('Users', () => {
       it('Should be able to see the added user', async () => {
         await onTheAdminPlatformTeamPage()
 
-        await expect(AdminTeamPage.teamMembers().getText()).toContain(
-          mockUserName
+        await expect(AdminTeamPage.teamMembers()).toHaveText(
+          new RegExp(mockUserName, 'g')
         )
       })
 
@@ -227,21 +227,36 @@ describe('Users', () => {
       })
 
       it('Should be able to remove the user from the team', async () => {
-        await expect(AdminTeamPage.teamMembers().getText()).toContain(
-          mockUserName
+        await expect(AdminTeamPage.teamMembers()).toHaveText(
+          new RegExp(mockUserName, 'g')
         )
-
         await AdminTeamPage.removeButton(mockUserName).click()
+      })
 
-        await FormComponent.submitButtonWithTestId(
-          'Remove',
-          'remove-member-button'
-        ).click()
+      it('Should be on the confirm remove member page', async () => {
+        await expect(browser).toHaveTitle(
+          'Remove Team Member | Core Delivery Platform - Portal'
+        )
+        await expect(await AdminPage.navIsActive()).toBe(true)
+        await expect(await AdminTeamPage.subNavIsActive()).toBe(true)
+        await expect(
+          PageHeadingComponent.caption('Remove Member from Team')
+        ).toExist()
+        await expect(PageHeadingComponent.title('Platform')).toExist()
+
+        await FormComponent.submitButton('Remove team member').click()
+      })
+
+      it('Member should have been removed', async () => {
         await onTheAdminPlatformTeamPage()
 
         await expect(
           HeadingComponent.banner('Member removed from team')
         ).toExist()
+
+        await expect(AdminTeamPage.teamMembers()).not.toHaveText(
+          new RegExp(mockUserName, 'g')
+        )
       })
     })
 
