@@ -1,8 +1,8 @@
 import { $ } from '@wdio/globals'
 
-/** appHeading component */
+/**  @deprecated appHeading component */
 class HeadingComponent {
-  content(content) {
+  banner(content) {
     return $('[data-testid="app-banner-content"]*=' + content)
   }
 
